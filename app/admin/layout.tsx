@@ -50,6 +50,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       isMounted = false
       subscription.unsubscribe()
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router]) // Ran ONCE on mount, independent of pathname tab switching
 
   if (pathname === '/admin/login') {
