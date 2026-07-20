@@ -96,8 +96,9 @@ export default function AdminBlogsPage() {
                   <h3 className="font-semibold text-white truncate">{blog.title}</h3>
                   <span className={`badge text-[10px] ${blog.published ? 'badge-green' : 'badge-blue'}`}>{blog.published ? '● Live' : 'Draft'}</span>
                 </div>
-                <p className="text-xs text-white/40">{formatDate(blog.created_at)} · /blogs/{blog.slug}</p>
-              </div>
+<p className="text-xs text-white/40">
+  {formatDate(blog.created_at ?? null)} · /blogs/{blog.slug}
+</p>              </div>
               <div className="flex gap-2 flex-shrink-0">
                 <button onClick={() => handleToggle(blog)} className={`p-2 rounded-xl glass ${blog.published ? 'text-green-400' : 'text-white/40'}`}>
                   {blog.published ? <ToggleRight size={16} /> : <ToggleLeft size={16} />}
