@@ -48,6 +48,7 @@ export const visitorService = {
       .gte('visited_at', since.toISOString())
     if (error) { console.error(error); return [] }
     const grouped = (data ?? []).reduce((acc, v) => {
+      if (!v.visited_at) return acc
       const date = new Date(v.visited_at).toLocaleDateString()
       acc[date] = (acc[date] ?? 0) + 1
       return acc

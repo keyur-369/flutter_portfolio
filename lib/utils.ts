@@ -12,14 +12,15 @@ export function slugify(text: string): string {
     .replace(/[\s_-]+/g, '-')
     .replace(/^-+|-+$/g, '')
 }
-
-export function formatDate(dateString: string | null): string {
+export function formatDate(dateString: string | null | undefined): string {
   if (!dateString) return 'Present'
+
   return new Date(dateString).toLocaleDateString('en-US', {
     month: 'short',
     year: 'numeric',
   })
 }
+
 
 export function truncate(str: string, length: number): string {
   if (str.length <= length) return str

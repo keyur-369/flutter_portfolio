@@ -110,8 +110,9 @@ export default function AdminExperiencePage() {
                   {exp.currently_working && <span className="badge badge-green text-[10px]">● Current</span>}
                 </div>
                 <p className="text-sm text-violet-400">{exp.company}</p>
-                <p className="text-xs text-white/40">{formatDate(exp.start_date)} — {exp.currently_working ? 'Present' : formatDate(exp.end_date)}</p>
-              </div>
+<p className="text-xs text-white/40">
+  {formatDate(exp.start_date ?? null)} — {exp.currently_working ? 'Present' : formatDate(exp.end_date ?? null)}
+</p>              </div>
               <div className="flex gap-2">
                 <button onClick={() => { setEditing(exp); setShowForm(true) }} className="p-2 rounded-xl glass text-white/60 hover:text-white"><Edit size={14} /></button>
                 <button onClick={() => handleDelete(exp.id)} className="p-2 rounded-xl glass text-red-400/60 hover:text-red-400"><Trash2 size={14} /></button>

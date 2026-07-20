@@ -22,7 +22,7 @@ export function TestimonialsClient({ testimonials }: TestimonialsClientProps) {
             What People <span className="gradient-text">Say</span>
           </h1>
           <p className="section-subtitle mx-auto">
-            Feedback from clients and collaborators I've had the privilege to work with.
+            Feedback from clients and collaborators I&apos;ve had the privilege to work with.
           </p>
         </FadeIn>
 
@@ -31,7 +31,7 @@ export function TestimonialsClient({ testimonials }: TestimonialsClientProps) {
             <div className="text-5xl mb-4">⭐</div>
             <h3 className="font-display font-bold text-2xl text-white mb-3">Testimonials Coming Soon</h3>
             <p className="text-white/50">
-              I'm building my portfolio of work. Client testimonials will appear here as I complete more projects.
+              I&apos;m building my portfolio of work. Client testimonials will appear here as I complete more projects.
             </p>
           </div>
         ) : (
@@ -47,7 +47,7 @@ export function TestimonialsClient({ testimonials }: TestimonialsClientProps) {
                     </div>
                     <Quote size={24} className="text-indigo-400/40 mb-3" />
                     <p className="text-white/70 text-sm leading-relaxed italic flex-1 mb-6">
-                      "{t.review}"
+                      &ldquo;{t.review}&rdquo;
                     </p>
                     <div className="flex items-center gap-3 pt-4 border-t border-white/[0.06]">
                       <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-violet-600 flex items-center justify-center text-white font-bold text-sm flex-shrink-0">

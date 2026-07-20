@@ -15,7 +15,7 @@ export function TypewriterText() {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isDeleting, setIsDeleting] = useState(false)
   const [isPaused, setIsPaused] = useState(false)
-  const timeoutRef = useRef<NodeJS.Timeout>()
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   useEffect(() => {
     const currentRole = ROLES[currentIndex]
@@ -49,7 +49,9 @@ export function TypewriterText() {
     }
 
     timeoutRef.current = setTimeout(type, 100)
-    return () => clearTimeout(timeoutRef.current)
+    return () => {
+      if (timeoutRef.current) clearTimeout(timeoutRef.current)
+    }
   }, [displayText, currentIndex, isDeleting, isPaused])
 
   return (

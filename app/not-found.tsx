@@ -27,7 +27,7 @@ export default function NotFound() {
             Page Not Found
           </h1>
           <p className="text-white/55 text-lg max-w-md mx-auto mb-10">
-            Looks like this page got lost in the digital void. Let's get you back on track.
+            Looks like this page got lost in the digital void. Let&apos;s get you back on track.
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">

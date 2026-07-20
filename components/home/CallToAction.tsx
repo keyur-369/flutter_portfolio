@@ -49,12 +49,12 @@ export function CallToAction({ profile }: CallToActionProps) {
                 <h2 className="section-title text-white mb-6">
                   Have a project in mind?
                   <br />
-                  <span className="gradient-text">Let's build it together.</span>
+                  <span className="gradient-text">Let&apos;s build it together.</span>
                 </h2>
 
                 <p className="text-white/70 text-lg max-w-xl mx-auto mb-10 leading-relaxed font-normal">
-                  I'm currently available for freelance projects and full-time engineering roles. 
-                  Whether it's a cross-platform Flutter app or scalable full-stack web platform — let me help you build it.
+                  I&apos;m currently available for freelance projects and full-time engineering roles. 
+                  Whether it&apos;s a cross-platform Flutter app or scalable full-stack web platform — let me help you build it.
                 </p>
 
                 <div className="flex flex-col sm:flex-row items-center justify-center gap-4">

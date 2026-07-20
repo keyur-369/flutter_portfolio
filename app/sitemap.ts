@@ -26,19 +26,23 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   ])
 
   const blogRoutes: MetadataRoute.Sitemap = blogs
-    .filter((b) => b.slug)
+    .filter((blog) => blog.slug)
     .map((blog) => ({
       url: `${baseUrl}/blogs/${blog.slug}`,
-      lastModified: new Date(blog.created_at),
+      lastModified: blog.created_at
+        ? new Date(blog.created_at)
+        : new Date(),
       changeFrequency: 'monthly' as const,
       priority: 0.7,
     }))
 
   const projectRoutes: MetadataRoute.Sitemap = projects
-    .filter((p) => p.slug)
+    .filter((project) => project.slug)
     .map((project) => ({
       url: `${baseUrl}/projects/${project.slug}`,
-      lastModified: new Date(project.created_at),
+      lastModified: project.created_at
+        ? new Date(project.created_at)
+        : new Date(),
       changeFrequency: 'monthly' as const,
       priority: 0.8,
     }))

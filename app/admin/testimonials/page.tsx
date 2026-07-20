@@ -76,7 +76,7 @@ export default function AdminTestimonialsPage() {
               <div className="flex-1">
                 <p className="font-semibold text-white mb-1">{t.client_name}</p>
                 <p className="text-xs text-indigo-400 mb-2">{t.designation}{t.company ? ` · ${t.company}` : ''}</p>
-                <p className="text-sm text-white/55 italic line-clamp-2">"{t.review}"</p>
+                <p className="text-sm text-white/55 italic line-clamp-2">&ldquo;{t.review}&rdquo;</p>
               </div>
               <div className="flex gap-2 flex-shrink-0">
                 <button onClick={() => { setEditing(t); setShowForm(true) }} className="p-2 rounded-xl glass text-white/60 hover:text-white"><Edit size={14} /></button>

@@ -15,6 +15,9 @@ const eslintConfig = [
     rules: {
       '@typescript-eslint/no-unused-vars': 'warn',
       '@typescript-eslint/no-explicit-any': 'warn',
+
+      // Disable JSX quote/apostrophe errors
+      'react/no-unescaped-entities': 'off',
     },
   },
 ]

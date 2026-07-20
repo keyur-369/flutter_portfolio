@@ -6,6 +6,13 @@ export type Json =
   | { [key: string]: Json | undefined }
   | Json[]
 
+type TableDef<T> = {
+  Row: T & Record<string, unknown>
+  Insert: Partial<T>
+  Update: Partial<T>
+  Relationships: []
+}
+
 export interface Profile {
   id: string
   full_name: string
@@ -145,69 +152,27 @@ export interface Visitor {
   visited_at?: string
 }
 
-export interface Database {
+export type Database = {
   public: {
     Tables: {
-      profile: {
-        Row: Profile
-        Insert: Partial<Profile>
-        Update: Partial<Profile>
-      }
-      education: {
-        Row: Education
-        Insert: Partial<Education>
-        Update: Partial<Education>
-      }
-      experience: {
-        Row: Experience
-        Insert: Partial<Experience>
-        Update: Partial<Experience>
-      }
-      skills: {
-        Row: Skill
-        Insert: Partial<Skill>
-        Update: Partial<Skill>
-      }
-      projects: {
-        Row: Project
-        Insert: Partial<Project>
-        Update: Partial<Project>
-      }
-      certificates: {
-        Row: Certificate
-        Insert: Partial<Certificate>
-        Update: Partial<Certificate>
-      }
-      blogs: {
-        Row: Blog
-        Insert: Partial<Blog>
-        Update: Partial<Blog>
-      }
-      contact_messages: {
-        Row: ContactMessage
-        Insert: Partial<ContactMessage>
-        Update: Partial<ContactMessage>
-      }
-      testimonials: {
-        Row: Testimonial
-        Insert: Partial<Testimonial>
-        Update: Partial<Testimonial>
-      }
-      social_links: {
-        Row: SocialLink
-        Insert: Partial<SocialLink>
-        Update: Partial<SocialLink>
-      }
-      website_settings: {
-        Row: WebsiteSettings
-        Insert: Partial<WebsiteSettings>
-        Update: Partial<WebsiteSettings>
-      }
-      visitors: {
-        Row: Visitor
-        Insert: Partial<Visitor>
-        Update: Partial<Visitor>
-      }
+      profile: TableDef<Profile>
+      education: TableDef<Education>
+      experience: TableDef<Experience>
+      skills: TableDef<Skill>
+      projects: TableDef<Project>
+      certificates: TableDef<Certificate>
+      blogs: TableDef<Blog>
+      contact_messages: TableDef<ContactMessage>
+      testimonials: TableDef<Testimonial>
+      social_links: TableDef<SocialLink>
+      website_settings: TableDef<WebsiteSettings>
+      visitors: TableDef<Visitor>
+    }
+    Views: {
+      [_ in never]: never
+    }
+    Functions: {
+      [_ in never]: never
     }
   }
 }

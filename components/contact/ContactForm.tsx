@@ -58,10 +58,10 @@ export function ContactForm({ profile }: ContactFormProps) {
             Contact
           </div>
           <h1 className="section-title text-white mb-4">
-            Let's <span className="gradient-text">Work Together</span>
+            Let&apos;s <span className="gradient-text">Work Together</span>
           </h1>
           <p className="section-subtitle mx-auto">
-            Have a project in mind? I'm available for freelance work and full-time opportunities. Let's build something amazing.
+            Have a project in mind? I&apos;m available for freelance work and full-time opportunities. Let&apos;s build something amazing.
           </p>
         </FadeIn>
 
@@ -111,7 +111,7 @@ export function ContactForm({ profile }: ContactFormProps) {
                   <CheckCircle size={32} className="text-green-400" />
                 </div>
                 <h3 className="font-display font-bold text-2xl text-white mb-3">Message Sent!</h3>
-                <p className="text-white/60 mb-6">Thank you for reaching out. I'll get back to you within 24 hours.</p>
+                <p className="text-white/60 mb-6">Thank you for reaching out. I&apos;ll get back to you within 24 hours.</p>
                 <button onClick={() => setSubmitted(false)} className="btn-ghost">
                   Send Another Message
                 </button>
