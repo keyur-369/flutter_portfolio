@@ -5,6 +5,7 @@ import { Providers } from '@/components/providers/Providers'
 import { AnimatedCursor } from '@/components/ui/AnimatedCursor'
 import { ScrollProgress } from '@/components/ui/ScrollProgress'
 import { Toaster } from 'sonner'
+import { settingsService } from '@/services/settingsService'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -30,65 +31,68 @@ const caveat = Caveat({
   display: 'swap',
 })
 
-export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://keyurmistry.dev'),
-  title: {
-    default: 'Keyur Mistry — Flutter & Full Stack Developer',
-    template: '%s | Keyur Mistry',
-  },
-  description:
-    'Flutter Developer with practical experience developing cross-platform applications using Flutter, Firebase and Supabase. Skilled in REST APIs, scalable architecture, backend integration and UI development.',
-  keywords: [
-    'Flutter Developer',
-    'Mobile App Developer',
-    'Dart',
-    'Firebase',
-    'Supabase',
-    'Full Stack Developer',
-    'Keyur Mistry',
-    'Android Developer',
-    'React',
-    'Next.js',
-  ],
-  authors: [{ name: 'Keyur Mistry' }],
-  creator: 'Keyur Mistry',
-  openGraph: {
-    type: 'website',
-    locale: 'en_US',
-    url: 'https://keyurmistry.dev',
-    siteName: 'Keyur Mistry Portfolio',
-    title: 'Keyur Mistry — Flutter & Full Stack Developer',
-    description:
-      'Flutter Developer building beautiful cross-platform applications with Flutter, Firebase & Supabase.',
-    images: [
-      {
-        url: '/og-image.png',
-        width: 1200,
-        height: 630,
-        alt: 'Keyur Mistry Portfolio',
-      },
-    ],
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Keyur Mistry — Flutter & Full Stack Developer',
-    description:
-      'Flutter Developer building beautiful cross-platform applications with Flutter, Firebase & Supabase.',
-    images: ['/og-image.png'],
-    creator: '@keyurmistry',
-  },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
+export async function generateMetadata(): Promise<Metadata> {
+  const settings = await settingsService.get()
+
+  return {
+    metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://keyurmistry.dev'),
+    title: {
+      default: settings?.site_name || 'Keyur Mistry — Flutter & Full Stack Developer',
+      template: `%s | ${settings?.site_name || 'Keyur Mistry'}`,
+    },
+    description: settings?.site_description || 'Flutter Developer with practical experience developing cross-platform applications using Flutter, Firebase and Supabase. Skilled in REST APIs, scalable architecture, backend integration and UI development.',
+    keywords: settings?.seo_keywords 
+      ? settings.seo_keywords.split(',').map(k => k.trim()) 
+      : [
+        'Flutter Developer',
+        'Mobile App Developer',
+        'Dart',
+        'Firebase',
+        'Supabase',
+        'Full Stack Developer',
+        'Keyur Mistry',
+        'Android Developer',
+        'React',
+        'Next.js',
+      ],
+    authors: [{ name: settings?.site_name?.split(' ')[0] || 'Keyur Mistry' }],
+    creator: settings?.site_name || 'Keyur Mistry',
+    openGraph: {
+      type: 'website',
+      locale: 'en_US',
+      url: process.env.NEXT_PUBLIC_SITE_URL || 'https://keyurmistry.dev',
+      siteName: settings?.site_name || 'Keyur Mistry Portfolio',
+      title: settings?.site_name || 'Keyur Mistry — Flutter & Full Stack Developer',
+      description: settings?.site_description || 'Flutter Developer building beautiful cross-platform applications with Flutter, Firebase & Supabase.',
+      images: [
+        {
+          url: '/og-image.png',
+          width: 1200,
+          height: 630,
+          alt: settings?.site_name || 'Keyur Mistry Portfolio',
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: settings?.site_name || 'Keyur Mistry — Flutter & Full Stack Developer',
+      description: settings?.site_description || 'Flutter Developer building beautiful cross-platform applications with Flutter, Firebase & Supabase.',
+      images: ['/og-image.png'],
+      creator: '@keyurmistry',
+    },
+    robots: {
       index: true,
       follow: true,
-      'max-video-preview': -1,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
+      googleBot: {
+        index: true,
+        follow: true,
+        'max-video-preview': -1,
+        'max-image-preview': 'large',
+        'max-snippet': -1,
+      },
     },
-  },
-  manifest: '/manifest.json',
+    manifest: '/manifest.json',
+  }
 }
 
 export const viewport: Viewport = {
@@ -98,11 +102,13 @@ export const viewport: Viewport = {
   initialScale: 1,
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
+  const settings = await settingsService.get()
+
   return (
     <html
       lang="en"
@@ -130,6 +136,21 @@ export default function RootLayout({
             }),
           }}
         />
+        {settings?.google_analytics && (
+          <>
+            <script async src={`https://www.googletagmanager.com/gtag/js?id=${settings.google_analytics}`} />
+            <script
+              dangerouslySetInnerHTML={{
+                __html: `
+                  window.dataLayer = window.dataLayer || [];
+                  function gtag(){dataLayer.push(arguments);}
+                  gtag('js', new Date());
+                  gtag('config', '${settings.google_analytics}');
+                `,
+              }}
+            />
+          </>
+        )}
       </head>
       <body className="bg-background text-foreground antialiased">
         {/* Aurora Background */}
