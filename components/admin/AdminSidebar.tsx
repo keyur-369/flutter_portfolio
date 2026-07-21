@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import {
   LayoutDashboard, FolderOpen, Code2, Briefcase, GraduationCap,
-  Award, BookOpen, Quote, Mail, Settings, User, LogOut, ChevronRight,
+  Award, BookOpen, Quote, Mail, Settings, User, LogOut, ChevronRight, MessageSquare
 } from 'lucide-react'
 import { supabase } from '@/lib/supabase'
 import { toast } from 'sonner'
@@ -21,6 +21,7 @@ const navItems = [
   { href: '/admin/blogs', label: 'Blogs', icon: BookOpen },
   { href: '/admin/testimonials', label: 'Testimonials', icon: Quote },
   { href: '/admin/messages', label: 'Messages', icon: Mail },
+  { href: '/admin/guestbook', label: 'Guestbook', icon: MessageSquare },
   { href: '/admin/profile', label: 'Profile', icon: User },
   { href: '/admin/settings', label: 'Settings', icon: Settings },
 ]

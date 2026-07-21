@@ -9,6 +9,7 @@ import { AboutHero } from '@/components/about/AboutHero'
 import { EducationTimeline } from '@/components/about/EducationTimeline'
 import { ExperienceTimeline } from '@/components/about/ExperienceTimeline'
 import { AboutStats } from '@/components/about/AboutStats'
+import { GithubGraph } from '@/components/about/GithubGraph'
 
 export const metadata: Metadata = {
   title: 'About',
@@ -38,6 +39,7 @@ export default async function AboutPage() {
         certsCount={certs.length}
       />
       <ExperienceTimeline experience={experience} />
+      <GithubGraph username={profile?.github} />
       <EducationTimeline education={education} />
     </>
   )

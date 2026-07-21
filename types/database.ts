@@ -153,6 +153,14 @@ export interface Visitor {
   visited_at?: string
 }
 
+export interface GuestbookEntry {
+  id: string
+  name: string
+  email?: string | null
+  message: string
+  created_at?: string
+}
+
 export type Database = {
   public: {
     Tables: {
@@ -168,6 +176,7 @@ export type Database = {
       social_links: TableDef<SocialLink>
       website_settings: TableDef<WebsiteSettings>
       visitors: TableDef<Visitor>
+      guestbook_entries: TableDef<GuestbookEntry>
     }
     Views: {
       [_ in never]: never

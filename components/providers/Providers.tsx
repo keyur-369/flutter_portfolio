@@ -12,12 +12,18 @@ export function Providers({ children }: { children: React.ReactNode }) {
         const settings = await settingsService.get()
         if (settings) {
           if (settings.primary_color) {
-            document.documentElement.style.setProperty('--primary', hexToHsl(settings.primary_color))
-            document.documentElement.style.setProperty('--accent', hexToHsl(settings.primary_color))
-            document.documentElement.style.setProperty('--ring', hexToHsl(settings.primary_color))
+            const hslPrimary = hexToHsl(settings.primary_color)
+            if (hslPrimary) {
+              document.documentElement.style.setProperty('--primary', hslPrimary)
+              document.documentElement.style.setProperty('--accent', hslPrimary)
+              document.documentElement.style.setProperty('--ring', hslPrimary)
+            }
           }
           if (settings.secondary_color) {
-            document.documentElement.style.setProperty('--secondary', hexToHsl(settings.secondary_color))
+            const hslSecondary = hexToHsl(settings.secondary_color)
+            if (hslSecondary) {
+              document.documentElement.style.setProperty('--secondary', hslSecondary)
+            }
           }
           if (settings.background_color) {
             document.documentElement.style.setProperty('--bg-color', settings.background_color)
@@ -27,7 +33,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
         console.error('Failed to load colors:', error)
       }
     }
-    loadColors()
+    // loadColors() // Temporarily disabled to force fallback to globals.css
   }, [])
 
   return (

@@ -86,30 +86,32 @@ export default function AdminProfilePage() {
     toast.success('Cropped avatar photo updated!')
   }
 
-  // INSTANT Resume Upload (0ms local FileReader conversion)
-  const handleResumeUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+  // Upload PDF to Supabase Storage → save public URL in profile
+  const handleResumeUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
     if (!file) return
+    if (file.type !== 'application/pdf') {
+      toast.error('Please select a valid PDF file')
+      return
+    }
 
     setUploading(true)
-    const reader = new FileReader()
-    reader.onload = async (event) => {
-      const base64Url = event.target?.result as string
-      setValue('resume_url', base64Url)
+    try {
+      const publicUrl = await profileService.uploadResume(file)
+      if (!publicUrl) throw new Error('Upload failed')
 
+      setValue('resume_url', publicUrl)
       if (profile?.id) {
-        await profileService.update(profile.id, { resume_url: base64Url })
-        setProfile((p) => (p ? { ...p, resume_url: base64Url } : p))
+        await profileService.update(profile.id, { resume_url: publicUrl })
+        setProfile((p) => (p ? { ...p, resume_url: publicUrl } : p))
       }
-
+      toast.success('Resume PDF uploaded successfully!')
+    } catch {
+      toast.error('Failed to upload resume. Check Supabase Storage bucket "resume" exists.')
+    } finally {
       setUploading(false)
-      toast.success('Resume file attached successfully!')
+      e.target.value = ''
     }
-    reader.onerror = () => {
-      setUploading(false)
-      toast.error('Failed to read PDF file')
-    }
-    reader.readAsDataURL(file)
   }
 
   if (loading) {
@@ -251,21 +253,54 @@ export default function AdminProfilePage() {
           <label className="text-xs font-semibold text-slate-200 block flex items-center gap-2">
             <FileText size={14} className="text-primary/70" />
             Resume PDF File
+            <span className="text-white/30 font-normal">(shown on /resume page)</span>
           </label>
-          {profile?.resume_url && (
-            <div className="flex items-center gap-3">
-              <a href={profile.resume_url} target="_blank" rel="noopener noreferrer" className="text-xs text-primary/70 hover:text-primary font-medium">
-                Current attached resume PDF →
-              </a>
+
+          {profile?.resume_url && !profile.resume_url.startsWith('data:') ? (
+            /* Uploaded PDF card */
+            <div className="glass rounded-xl p-4 border border-primary/20 flex items-center gap-4">
+              <div className="w-10 h-10 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center flex-shrink-0">
+                <FileText size={18} className="text-primary" />
+              </div>
+              <div className="flex-1 min-w-0">
+                <p className="text-sm font-semibold text-white mb-0.5">Resume PDF Uploaded ✓</p>
+                <p className="text-xs text-white/40 truncate">{profile.resume_url}</p>
+              </div>
+              <div className="flex items-center gap-2 flex-shrink-0">
+                <a
+                  href={profile.resume_url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-xs text-primary/70 hover:text-primary font-medium px-3 py-1.5 rounded-lg border border-primary/20 hover:border-primary/50 transition-colors"
+                >
+                  View →
+                </a>
+                <button
+                  type="button"
+                  onClick={async () => {
+                    if (!profile?.id) return
+                    await profileService.update(profile.id, { resume_url: null })
+                    setProfile((p) => (p ? { ...p, resume_url: null } : p))
+                    setValue('resume_url', '')
+                    toast.success('Resume removed')
+                  }}
+                  className="text-xs text-red-400 hover:text-red-300 px-3 py-1.5 rounded-lg border border-red-500/20 hover:border-red-500/40 transition-colors"
+                >
+                  Remove
+                </button>
+              </div>
             </div>
+          ) : (
+            <p className="text-xs text-white/30">No resume PDF uploaded yet.</p>
           )}
+
           <label className="btn-primary text-xs py-2 px-4 cursor-pointer inline-flex items-center gap-2">
             {uploading ? (
               <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
             ) : (
-              <><Upload size={14} /> Upload Resume PDF</>
+              <><Upload size={14} /> {profile?.resume_url ? 'Replace PDF' : 'Upload Resume PDF'}</>
             )}
-            <input type="file" accept=".pdf" onChange={handleResumeUpload} className="hidden" disabled={uploading} />
+            <input type="file" accept=".pdf,application/pdf" onChange={handleResumeUpload} className="hidden" disabled={uploading} />
           </label>
         </div>
 

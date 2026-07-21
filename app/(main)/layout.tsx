@@ -5,11 +5,15 @@ import { PageTransition } from '@/components/providers/PageTransition'
 export default function MainLayout({ children }: { children: React.ReactNode }) {
   return (
     <>
-      <Navbar />
-      <main className="relative z-10 pt-20">
+      <div className="print:hidden">
+        <Navbar />
+      </div>
+      <main className="relative z-10 pt-20 print:pt-0 print:m-0 print:p-0">
         <PageTransition>{children}</PageTransition>
       </main>
-      <Footer />
+      <div className="print:hidden">
+        <Footer />
+      </div>
     </>
   )
 }

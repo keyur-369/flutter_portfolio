@@ -16,6 +16,7 @@ const navLinks = [
   { href: '/certificates', label: 'Certs' },
   { href: '/testimonials', label: 'Reviews' },
   { href: '/blogs', label: 'Blog' },
+  { href: '/guestbook', label: 'Guestbook' },
   { href: '/contact', label: 'Contact' },
 ]
 

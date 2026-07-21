@@ -55,11 +55,18 @@ export async function triggerRevalidate(path?: string) {
   }
 }
 
-export function hexToHsl(hex: string): string {
+export function hexToHsl(hex: string): string | null {
+  if (!hex || typeof hex !== 'string') return null
   hex = hex.replace(/^#/, '')
+  
+  // Try to parse rgb/rgba or hsl/hsla if someone accidentally put that in the DB
+  if (hex.startsWith('rgb') || hex.startsWith('hsl')) return null
+  
   if (hex.length === 3) {
     hex = hex[0] + hex[0] + hex[1] + hex[1] + hex[2] + hex[2]
   }
+
+  if (!/^[0-9A-Fa-f]{6}$/.test(hex)) return null
 
   const r = parseInt(hex.substring(0, 2), 16) / 255
   const g = parseInt(hex.substring(2, 4), 16) / 255

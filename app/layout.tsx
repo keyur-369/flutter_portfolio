@@ -4,8 +4,10 @@ import './globals.css'
 import { Providers } from '@/components/providers/Providers'
 import { AnimatedCursor } from '@/components/ui/AnimatedCursor'
 import { ScrollProgress } from '@/components/ui/ScrollProgress'
+import { CommandMenu } from '@/components/ui/CommandMenu'
 import { Toaster } from 'sonner'
 import { settingsService } from '@/services/settingsService'
+import { VisitorTracker } from '@/components/providers/VisitorTracker'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -66,7 +68,7 @@ export async function generateMetadata(): Promise<Metadata> {
       description: settings?.site_description || 'Flutter Developer building beautiful cross-platform applications with Flutter, Firebase & Supabase.',
       images: [
         {
-          url: '/og-image.png',
+          url: `/api/og?title=${encodeURIComponent(settings?.site_name || 'Keyur Mistry')}`,
           width: 1200,
           height: 630,
           alt: settings?.site_name || 'Keyur Mistry Portfolio',
@@ -77,7 +79,7 @@ export async function generateMetadata(): Promise<Metadata> {
       card: 'summary_large_image',
       title: settings?.site_name || 'Keyur Mistry — Flutter & Full Stack Developer',
       description: settings?.site_description || 'Flutter Developer building beautiful cross-platform applications with Flutter, Firebase & Supabase.',
-      images: ['/og-image.png'],
+      images: [`/api/og?title=${encodeURIComponent(settings?.site_name || 'Keyur Mistry')}`],
       creator: '@keyurmistry',
     },
     robots: {
@@ -159,8 +161,10 @@ export default async function RootLayout({
         <div className="noise-overlay" aria-hidden="true" />
 
         <Providers>
+          <VisitorTracker />
           <AnimatedCursor />
           <ScrollProgress />
+          <CommandMenu />
           {children}
           <Toaster
             position="bottom-right"
