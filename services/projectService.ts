@@ -1,5 +1,6 @@
 import { supabase } from '@/lib/supabase'
 import type { Project } from '@/types/database'
+import { triggerRevalidate } from '@/lib/utils'
 
 let projectsCache: { data: Project[]; timestamp: number } | null = null
 const CACHE_TTL = 300000 // 5 minutes
@@ -102,6 +103,7 @@ export const projectService = {
       console.error('projectService.create error:', error.message)
       return { data: null, error: error.message }
     }
+    triggerRevalidate()
     return { data, error: null }
   },
 
@@ -125,6 +127,7 @@ export const projectService = {
       console.error('projectService.update error:', error.message)
       return { data: null, error: error.message }
     }
+    triggerRevalidate()
     return { data, error: null }
   },
 
@@ -132,6 +135,7 @@ export const projectService = {
     this.clearCache()
     const { error } = await supabase.from('projects').delete().eq('id', id)
     if (error) { console.error('projectService.delete error:', error.message); return false }
+    triggerRevalidate()
     return true
   },
 

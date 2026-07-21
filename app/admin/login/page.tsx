@@ -49,7 +49,7 @@ export default function AdminLoginPage() {
         className="relative z-10 w-full max-w-md"
       >
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-500 to-violet-600 mb-4">
+          <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-br from-primary to-secondary mb-4">
             <Code2 size={24} className="text-white" />
           </div>
           <h1 className="font-display font-black text-3xl text-white mb-1">Admin Portal</h1>

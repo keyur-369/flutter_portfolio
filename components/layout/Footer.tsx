@@ -31,13 +31,13 @@ export function Footer() {
           <div className="flex flex-col lg:flex-row items-center justify-between gap-8 pb-12 border-b border-white/[0.06] text-center lg:text-left">
             <div className="space-y-3">
               <Link href="/" className="inline-flex items-center gap-3.5 group">
-                <div className="flex items-center justify-center w-10 h-10 rounded-2xl group-hover:scale-105 transition-transform duration-300"
-                  style={{ background: 'linear-gradient(135deg, #FE7F2D 0%, #233D4D 100%)', boxShadow: '0 4px 16px rgba(254,127,45,0.25)' }}
+                <div className="w-10 h-10 rounded-xl flex items-center justify-center shadow-lg group-hover:scale-105 transition-transform"
+                  style={{ background: 'linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--secondary)) 100%)', boxShadow: '0 4px 16px hsl(var(--primary) / 0.25)' }}
                 >
                   <Code2 size={20} className="text-white" />
                 </div>
-                <span className="font-display font-black text-2xl tracking-tight text-white flex items-center gap-1.5">
-                  Keyur <span style={{ color: '#FE7F2D' }}>Mistry</span>
+                <span className="font-display font-black text-2xl tracking-tight text-white">
+                  Keyur <span style={{ color: 'hsl(var(--primary))' }}>Mistry</span>
                 </span>
               </Link>
               <p className="text-slate-500 text-sm font-normal leading-relaxed max-w-xl">
@@ -103,7 +103,7 @@ export function Footer() {
                 aria-label="Scroll to top"
               >
                 <span>Back to top</span>
-                <ArrowUp size={13} style={{ color: '#FE7F2D' }} />
+                <ArrowUp size={13} style={{ color: 'hsl(var(--primary))' }} />
               </motion.button>
             </div>
           </div>

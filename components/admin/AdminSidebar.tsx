@@ -51,12 +51,12 @@ export function AdminSidebar() {
       {/* Logo */}
       <div className="p-5 border-b border-white/[0.06]">
         <div className="flex items-center gap-3">
-          <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-blue-500 to-violet-600 flex items-center justify-center shadow-md shadow-indigo-500/20">
+          <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-primary to-orange-500 flex items-center justify-center shadow-md shadow-primary/20">
             <Code2 size={16} className="text-white" />
           </div>
           <div>
             <p className="font-display font-bold text-sm text-white">Keyur Mistry</p>
-            <p className="text-xs text-indigo-400 font-medium">Admin Panel</p>
+            <p className="text-xs text-primary/90 font-medium">Admin Panel</p>
           </div>
         </div>
       </div>
@@ -77,13 +77,13 @@ export function AdminSidebar() {
               className={cn(
                 'flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-150 cursor-pointer select-none',
                 isActive
-                  ? 'bg-indigo-500/20 text-indigo-300 border border-indigo-500/40 font-semibold shadow-sm'
+                  ? 'bg-primary/20 text-white border border-primary/40 font-semibold shadow-sm'
                   : 'text-white/60 hover:text-white hover:bg-white/[0.06]'
               )}
             >
               <Icon size={16} className="pointer-events-none" />
               <span className="pointer-events-none">{item.label}</span>
-              {isActive && <ChevronRight size={12} className="ml-auto text-indigo-400 pointer-events-none" />}
+              {isActive && <ChevronRight size={12} className="ml-auto text-primary pointer-events-none" />}
             </Link>
           )
         })}

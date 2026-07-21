@@ -60,7 +60,7 @@ function ExpForm({ item, onClose, onSave }: { item?: Experience | null; onClose:
               <input {...register('end_date')} type="date" className="input-glass" /></div>
           </div>
           <label className="flex items-center gap-2 cursor-pointer">
-            <input type="checkbox" {...register('currently_working')} className="w-4 h-4 accent-indigo-500" />
+            <input type="checkbox" {...register('currently_working')} className="w-4 h-4 accent-primary" />
             <span className="text-sm text-white/70">Currently working here</span>
           </label>
           <div><label className="text-sm text-white/60 mb-1 block">Description</label>
@@ -99,7 +99,7 @@ export default function AdminExperiencePage() {
           <p className="text-white/50 text-sm">{items.length} entries</p></div>
         <button onClick={() => { setEditing(null); setShowForm(true) }} className="btn-primary"><Plus size={16} /> Add</button>
       </div>
-      {loading ? <div className="flex items-center justify-center h-40"><div className="w-8 h-8 border-2 border-indigo-500/30 border-t-indigo-500 rounded-full animate-spin" /></div> : (
+      {loading ? <div className="flex items-center justify-center h-40"><div className="w-8 h-8 border-2 border-primary/30 border-t-primary rounded-full animate-spin" /></div> : (
         <div className="space-y-3">
           {items.map((exp, i) => (
             <motion.div key={exp.id} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.05 }}
@@ -109,7 +109,7 @@ export default function AdminExperiencePage() {
                   <h3 className="font-semibold text-white">{exp.role}</h3>
                   {exp.currently_working && <span className="badge badge-green text-[10px]">● Current</span>}
                 </div>
-                <p className="text-sm text-violet-400">{exp.company}</p>
+                <p className="text-sm text-primary/70">{exp.company}</p>
 <p className="text-xs text-white/40">
   {formatDate(exp.start_date ?? null)} — {exp.currently_working ? 'Present' : formatDate(exp.end_date ?? null)}
 </p>              </div>

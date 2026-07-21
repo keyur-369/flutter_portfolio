@@ -154,7 +154,7 @@ function ProjectForm({
           {/* Cover Image Upload & Instant Live Preview Section */}
           <div className="glass-card p-4 rounded-2xl border border-white/10 bg-white/[0.02]">
             <label className="text-xs font-semibold text-slate-200 mb-3 block flex items-center gap-2">
-              <ImageIcon size={14} className="text-indigo-400" />
+              <ImageIcon size={14} className="text-primary/70" />
               Cover Image & Instant Live Preview
             </label>
 
@@ -231,7 +231,7 @@ function ProjectForm({
             </div>
             <div className="flex items-end pb-2">
               <label className="flex items-center gap-2.5 cursor-pointer">
-                <input type="checkbox" {...register('featured')} className="w-4 h-4 accent-indigo-500 rounded" />
+                <input type="checkbox" {...register('featured')} className="w-4 h-4 accent-primary rounded" />
                 <span className="text-xs font-semibold text-slate-200">Feature on Home Page</span>
               </label>
             </div>
@@ -298,7 +298,7 @@ export default function AdminProjectsPage() {
 
       {loading ? (
         <div className="flex items-center justify-center h-48">
-          <div className="w-8 h-8 border-2 border-indigo-500/30 border-t-indigo-500 rounded-full animate-spin" />
+          <div className="w-8 h-8 border-2 border-primary/30 border-t-primary rounded-full animate-spin" />
         </div>
       ) : (
         <div className="space-y-3">
@@ -314,7 +314,7 @@ export default function AdminProjectsPage() {
                 {project.image ? (
                   <img src={project.image} alt={project.title} className="w-12 h-12 rounded-xl object-cover border border-white/10 flex-shrink-0" />
                 ) : (
-                  <div className="w-12 h-12 rounded-xl bg-indigo-500/20 border border-indigo-500/30 flex items-center justify-center flex-shrink-0 text-xl font-bold text-indigo-300">
+                  <div className="w-12 h-12 rounded-xl bg-primary/20 border border-primary/30 flex items-center justify-center flex-shrink-0 text-xl font-bold text-primary/70">
                     {project.title.charAt(0)}
                   </div>
                 )}
@@ -336,7 +336,7 @@ export default function AdminProjectsPage() {
               <div className="flex items-center gap-2 flex-shrink-0">
                 {project.playstore_url && <a href={project.playstore_url} target="_blank" rel="noopener noreferrer" className="p-2 rounded-xl glass text-emerald-400 hover:text-emerald-300"><Store size={14} /></a>}
                 {project.github_url && <a href={project.github_url} target="_blank" rel="noopener noreferrer" className="p-2 rounded-xl glass text-slate-400 hover:text-white"><Github size={14} /></a>}
-                {project.live_url && <a href={project.live_url} target="_blank" rel="noopener noreferrer" className="p-2 rounded-xl glass text-indigo-400 hover:text-indigo-300"><ExternalLink size={14} /></a>}
+                {project.live_url && <a href={project.live_url} target="_blank" rel="noopener noreferrer" className="p-2 rounded-xl glass text-primary/70 hover:text-primary"><ExternalLink size={14} /></a>}
                 <button onClick={() => handleToggleFeatured(project)} className={`p-2 rounded-xl glass ${project.featured ? 'text-amber-400' : 'text-slate-500'}`} title="Toggle featured">
                   <Star size={14} />
                 </button>

@@ -19,7 +19,7 @@ export function TechStack({ skills }: TechStackProps) {
     <section className="section py-20 overflow-hidden">
       <div className="container-custom mb-12">
         <FadeIn className="text-center">
-          <p className="text-xs font-semibold uppercase tracking-[0.25em] mb-2" style={{ color: '#FE7F2D' }}>
+          <p className="text-xs font-semibold uppercase tracking-[0.25em] mb-2" style={{ color: 'hsl(var(--primary))' }}>
             Technology Stack
           </p>
           <h2 className="section-title text-white">

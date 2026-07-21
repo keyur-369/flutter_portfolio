@@ -56,18 +56,18 @@ export default function AdminDashboard() {
   }, [])
 
   const statCards = [
-    { label: 'Total Projects', value: stats.projects, icon: FolderOpen, color: 'from-blue-500 to-cyan-500', href: '/admin/projects' },
-    { label: 'Skills Listed', value: stats.skills, icon: Code2, color: 'from-violet-500 to-purple-500', href: '/admin/skills' },
+    { label: 'Total Projects', value: stats.projects, icon: FolderOpen, color: 'from-primary to-secondary', href: '/admin/projects' },
+    { label: 'Skills Listed', value: stats.skills, icon: Code2, color: 'from-primary to-secondary', href: '/admin/skills' },
     { label: 'Certificates', value: stats.certificates, icon: Award, color: 'from-amber-500 to-orange-500', href: '/admin/certificates' },
     { label: 'Total Visitors', value: stats.visitors, icon: Eye, color: 'from-green-500 to-emerald-500', href: '#' },
-    { label: 'Total Messages', value: stats.totalMessages, icon: Mail, color: 'from-pink-500 to-rose-500', href: '/admin/messages' },
+    { label: 'Total Messages', value: stats.totalMessages, icon: Mail, color: 'from-primary to-secondary', href: '/admin/messages' },
     { label: 'Unread Messages', value: stats.unreadMessages, icon: MessageSquare, color: 'from-red-500 to-orange-500', href: '/admin/messages' },
   ]
 
   if (loading) {
     return (
       <div className="flex items-center justify-center h-64">
-        <div className="w-8 h-8 border-2 border-indigo-500/30 border-t-indigo-500 rounded-full animate-spin" />
+        <div className="w-8 h-8 border-2 border-primary/30 border-t-primary rounded-full animate-spin" />
       </div>
     )
   }
@@ -114,7 +114,7 @@ export default function AdminDashboard() {
         >
           <div className="flex items-center justify-between mb-5">
             <h2 className="font-display font-bold text-lg text-white">Recent Projects</h2>
-            <Link href="/admin/projects" className="text-sm text-indigo-400 hover:text-indigo-300 flex items-center gap-1">
+            <Link href="/admin/projects" className="text-sm text-primary/70 hover:text-primary flex items-center gap-1">
               View all <ArrowRight size={12} />
             </Link>
           </div>
@@ -145,7 +145,7 @@ export default function AdminDashboard() {
         >
           <div className="flex items-center justify-between mb-5">
             <h2 className="font-display font-bold text-lg text-white">Recent Messages</h2>
-            <Link href="/admin/messages" className="text-sm text-indigo-400 hover:text-indigo-300 flex items-center gap-1">
+            <Link href="/admin/messages" className="text-sm text-primary/70 hover:text-primary flex items-center gap-1">
               View all <ArrowRight size={12} />
             </Link>
           </div>
@@ -157,7 +157,7 @@ export default function AdminDashboard() {
                   <p className="text-xs text-white/40 truncate">{msg.subject}</p>
                 </div>
                 <div className="flex items-center gap-2 flex-shrink-0">
-                  {!msg.is_read && <span className="w-2 h-2 rounded-full bg-blue-400" />}
+                  {!msg.is_read && <span className="w-2 h-2 rounded-full bg-primary" />}
                   <span className="text-xs text-white/30">{formatDate(msg.created_at)}</span>
                 </div>
               </div>

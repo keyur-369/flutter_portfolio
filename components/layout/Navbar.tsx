@@ -14,6 +14,7 @@ const navLinks = [
   { href: '/experience', label: 'Experience' },
   { href: '/projects', label: 'Projects' },
   { href: '/certificates', label: 'Certs' },
+  { href: '/testimonials', label: 'Reviews' },
   { href: '/blogs', label: 'Blog' },
   { href: '/contact', label: 'Contact' },
 ]
@@ -62,13 +63,13 @@ export function Navbar() {
               className="flex items-center gap-2.5 group cursor-pointer"
             >
               <div className="relative flex items-center justify-center w-9 h-9 rounded-xl group-hover:scale-105 transition-transform"
-                style={{ background: 'linear-gradient(135deg, #FE7F2D 0%, #233D4D 100%)', boxShadow: '0 4px 14px rgba(254,127,45,0.3)' }}
+                style={{ background: 'linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--secondary)) 100%)', boxShadow: '0 4px 14px hsl(var(--primary) / 0.3)' }}
               >
                 <Code2 size={18} className="text-white" />
               </div>
               <span className="font-display font-bold text-lg tracking-tight">
                 <span className="text-white font-extrabold">Keyur</span>
-                <span style={{ color: '#FE7F2D' }}>.</span>
+                <span style={{ color: 'hsl(var(--primary))' }}>.</span>
               </span>
             </Link>
 
@@ -94,7 +95,7 @@ export function Navbar() {
                     {isActive && (
                       <span
                         className="absolute inset-0 rounded-xl pointer-events-none"
-                        style={{ background: 'rgba(254,127,45,0.12)', border: '1px solid rgba(254,127,45,0.3)' }}
+                        style={{ background: 'hsl(var(--primary) / 0.12)', border: '1px solid hsl(var(--primary) / 0.3)' }}
                       />
                     )}
                     <span className="relative z-10 pointer-events-none">{link.label}</span>
@@ -110,10 +111,10 @@ export function Navbar() {
                 onMouseEnter={() => router.prefetch('/resume')}
                 className="flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold uppercase tracking-wider hover:scale-105 transition-transform cursor-pointer"
                 style={{
-                  background: 'linear-gradient(135deg, #FE7F2D 0%, #e06520 100%)',
+                  background: 'linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--primary) / 0.9) 100%)',
                   color: '#000',
-                  boxShadow: '0 4px 14px rgba(254,127,45,0.3)',
-                  border: '1px solid rgba(254,127,45,0.3)',
+                  boxShadow: '0 4px 14px hsl(var(--primary) / 0.3)',
+                  border: '1px solid hsl(var(--primary) / 0.3)',
                 }}
               >
                 <Zap size={13} fill="currentColor" />
@@ -158,8 +159,8 @@ export function Navbar() {
                       : 'text-slate-300 hover:text-white hover:bg-white/5'
                   )}
                   style={pathname === link.href ? {
-                    background: 'rgba(254,127,45,0.1)',
-                    border: '1px solid rgba(254,127,45,0.25)',
+                    background: 'hsl(var(--primary) / 0.1)',
+                    border: '1px solid hsl(var(--primary) / 0.25)',
                   } : {}}
                 >
                   {link.label}
@@ -169,7 +170,7 @@ export function Navbar() {
                 <a
                   href="/resume"
                   className="block px-4 py-2.5 rounded-xl text-sm font-semibold text-center text-black cursor-pointer"
-                  style={{ background: 'linear-gradient(135deg, #FE7F2D 0%, #e06520 100%)' }}
+                  style={{ background: 'linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--primary) / 0.9) 100%)' }}
                   onClick={() => setIsMobileOpen(false)}
                 >
                   Download Resume

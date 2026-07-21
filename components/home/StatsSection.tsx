@@ -53,7 +53,7 @@ export function StatsSection({
       value: skillsCount,
       label: 'Technologies Mastered',
       suffix: '+',
-      color: 'from-blue-500 to-cyan-500',
+      color: 'from-primary to-secondary',
     },
     {
       icon: Layers,
@@ -67,7 +67,7 @@ export function StatsSection({
       value: certsCount,
       label: 'Certifications Earned',
       suffix: '',
-      color: 'from-pink-500 to-rose-500',
+      color: 'from-primary to-secondary',
     },
     {
       icon: Cpu,

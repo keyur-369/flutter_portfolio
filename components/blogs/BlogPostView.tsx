@@ -51,10 +51,10 @@ export function BlogPostView({ blog }: BlogPostViewProps) {
               prose-headings:font-display prose-headings:font-bold prose-headings:text-white
               prose-p:text-white/60 prose-p:leading-relaxed
               prose-strong:text-white prose-strong:font-semibold
-              prose-code:text-indigo-300 prose-code:bg-indigo-500/10 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:text-sm prose-code:font-mono
-              prose-pre:bg-white/[0.04] prose-pre:border prose-pre:border-white/10 prose-pre:rounded-2xl
-              prose-a:text-indigo-400 prose-a:no-underline hover:prose-a:text-indigo-300
-              prose-blockquote:border-l-indigo-500 prose-blockquote:text-white/50
+              prose-code:text-primary/70 prose-code:bg-primary/10 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:text-sm prose-code:font-mono
+              prose-pre:bg-[#0a0a0a] prose-pre:border prose-pre:border-white/10
+              prose-a:text-primary/70 prose-a:no-underline hover:prose-a:text-primary
+              prose-blockquote:border-l-primary prose-blockquote:text-white/50
               prose-li:text-white/60
             ">
               <ReactMarkdown remarkPlugins={[remarkGfm]}>

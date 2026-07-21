@@ -9,6 +9,8 @@ import { projectService } from '@/services/projectService'
 import { skillsService } from '@/services/skillsService'
 import { certificateService } from '@/services/certificateService'
 import { experienceService } from '@/services/experienceService'
+import { testimonialService } from '@/services/testimonialService'
+import { TestimonialsSection } from '@/components/home/TestimonialsSection'
 
 export const metadata: Metadata = {
   title: 'Keyur Mistry — Flutter & Full Stack Developer',
@@ -19,12 +21,13 @@ export const metadata: Metadata = {
 export const revalidate = 3600
 
 export default async function HomePage() {
-  const [profile, featuredProjects, skills, certs, experience] = await Promise.all([
+  const [profile, featuredProjects, skills, certs, experience, testimonials] = await Promise.all([
     profileService.get(),
     projectService.getFeatured(),
     skillsService.getAll(),
     certificateService.getAll(),
     experienceService.getAll(),
+    testimonialService.getAll(),
   ])
 
   return (
@@ -38,6 +41,7 @@ export default async function HomePage() {
       />
       <FeaturedProjects projects={featuredProjects} />
       <TechStack skills={skills} />
+      <TestimonialsSection testimonials={testimonials} />
       <CallToAction profile={profile} />
     </>
   )

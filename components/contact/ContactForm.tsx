@@ -72,13 +72,13 @@ export function ContactForm({ profile }: ContactFormProps) {
               <h2 className="font-display font-bold text-2xl text-white mb-6">Get in touch</h2>
               {contactInfo.map(({ icon: Icon, label, value, href }) => (
                 <div key={label} className="glass-card p-4 flex items-center gap-4">
-                  <div className="w-10 h-10 rounded-xl bg-indigo-500/20 flex items-center justify-center flex-shrink-0">
-                    <Icon size={16} className="text-indigo-400" />
+                  <div className="w-10 h-10 rounded-xl bg-primary/20 flex items-center justify-center flex-shrink-0">
+                    <Icon size={16} className="text-primary/70" />
                   </div>
                   <div>
                     <p className="text-xs text-white/40 uppercase tracking-wider mb-0.5">{label}</p>
                     {href ? (
-                      <a href={href} target="_blank" rel="noopener noreferrer" className="text-sm font-medium text-white hover:text-indigo-300 transition-colors">
+                      <a href={href} target="_blank" rel="noopener noreferrer" className="text-sm font-medium text-white hover:text-primary transition-colors">
                         {value}
                       </a>
                     ) : (

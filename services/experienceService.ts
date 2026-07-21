@@ -1,5 +1,6 @@
 import { supabase } from '@/lib/supabase'
 import type { Experience } from '@/types/database'
+import { triggerRevalidate } from '@/lib/utils'
 
 let expCache: { data: Experience[]; timestamp: number } | null = null
 const CACHE_TTL = 300000 // 5 minutes
@@ -51,6 +52,7 @@ export const experienceService = {
     this.clearCache()
     const { data, error } = await supabase.from('experience').insert(exp).select().maybeSingle()
     if (error) { console.error('experienceService.create error:', error.message); return null }
+    triggerRevalidate()
     return data
   },
 
@@ -58,6 +60,7 @@ export const experienceService = {
     this.clearCache()
     const { data, error } = await supabase.from('experience').update(updates).eq('id', id).select().maybeSingle()
     if (error) { console.error('experienceService.update error:', error.message); return null }
+    triggerRevalidate()
     return data
   },
 
@@ -65,6 +68,7 @@ export const experienceService = {
     this.clearCache()
     const { error } = await supabase.from('experience').delete().eq('id', id)
     if (error) { console.error('experienceService.delete error:', error.message); return false }
+    triggerRevalidate()
     return true
   },
 }

@@ -57,7 +57,7 @@ export function TypewriterText() {
   return (
     <span className="gradient-text font-display font-bold">
       {displayText}
-      <span className="animate-pulse" style={{ color: '#FE7F2D' }}>|</span>
+      <span className="animate-pulse" style={{ color: 'hsl(var(--primary))' }}>|</span>
     </span>
   )
 }

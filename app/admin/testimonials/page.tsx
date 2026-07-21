@@ -68,14 +68,14 @@ export default function AdminTestimonialsPage() {
           <p className="text-white/50 text-sm">{items.length} total</p></div>
         <button onClick={() => { setEditing(null); setShowForm(true) }} className="btn-primary"><Plus size={16} /> Add</button>
       </div>
-      {loading ? <div className="flex items-center justify-center h-40"><div className="w-8 h-8 border-2 border-indigo-500/30 border-t-indigo-500 rounded-full animate-spin" /></div> : (
+      {loading ? <div className="flex items-center justify-center h-40"><div className="w-8 h-8 border-2 border-primary/30 border-t-primary rounded-full animate-spin" /></div> : (
         <div className="space-y-3">
           {items.map((t, i) => (
             <motion.div key={t.id} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.05 }}
               className="glass-card p-5 flex items-start justify-between gap-4">
               <div className="flex-1">
                 <p className="font-semibold text-white mb-1">{t.client_name}</p>
-                <p className="text-xs text-indigo-400 mb-2">{t.designation}{t.company ? ` · ${t.company}` : ''}</p>
+                <p className="text-xs text-primary/70 mb-2">{t.designation}{t.company ? ` · ${t.company}` : ''}</p>
                 <p className="text-sm text-white/55 italic line-clamp-2">&ldquo;{t.review}&rdquo;</p>
               </div>
               <div className="flex gap-2 flex-shrink-0">

@@ -84,14 +84,14 @@ export default function AdminEducationPage() {
           <p className="text-white/50 text-sm">{items.length} entries</p></div>
         <button onClick={() => { setEditing(null); setShowForm(true) }} className="btn-primary"><Plus size={16} /> Add</button>
       </div>
-      {loading ? <div className="flex items-center justify-center h-40"><div className="w-8 h-8 border-2 border-indigo-500/30 border-t-indigo-500 rounded-full animate-spin" /></div> : (
+      {loading ? <div className="flex items-center justify-center h-40"><div className="w-8 h-8 border-2 border-primary/30 border-t-primary rounded-full animate-spin" /></div> : (
         <div className="space-y-3">
           {items.map((edu, i) => (
             <motion.div key={edu.id} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.05 }}
               className="glass-card p-5 flex items-center justify-between gap-4">
               <div className="flex-1">
                 <h3 className="font-semibold text-white">{edu.degree}</h3>
-                <p className="text-sm text-indigo-400">{edu.institute}</p>
+                <p className="text-sm text-primary/70">{edu.institute}</p>
                 <p className="text-xs text-white/40">{edu.start_year} — {edu.end_year ?? 'Present'} {edu.cgpa && `· CGPA: ${edu.cgpa}`}</p>
               </div>
               <div className="flex gap-2">

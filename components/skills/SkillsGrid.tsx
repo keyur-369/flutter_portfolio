@@ -9,16 +9,16 @@ import type { Skill } from '@/types/database'
 
 // All category icon colors updated to orange/teal theme — NO purple
 const CATEGORY_COLORS: Record<string, { bg: string; shadow: string }> = {
-  'Mobile Development':      { bg: 'linear-gradient(135deg, #FE7F2D, #e06520)', shadow: 'rgba(254,127,45,0.3)' },
-  'Backend & Database':      { bg: 'linear-gradient(135deg, #233D4D, #2d5468)', shadow: 'rgba(35,61,77,0.5)' },
+  'Mobile Development':      { bg: 'linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary) / 0.9))', shadow: 'hsl(var(--primary) / 0.3)' },
+  'Backend & Database':      { bg: 'linear-gradient(135deg, hsl(var(--secondary)), hsl(var(--secondary) / 0.8))', shadow: 'hsl(var(--secondary) / 0.5)' },
   'Tools & DevOps':          { bg: 'linear-gradient(135deg, #10b981, #059669)', shadow: 'rgba(16,185,129,0.3)' },
-  'Programming Languages':   { bg: 'linear-gradient(135deg, #FE7F2D, #233D4D)', shadow: 'rgba(254,127,45,0.25)' },
-  'Tools & Technologies':    { bg: 'linear-gradient(135deg, #233D4D, #FE7F2D)', shadow: 'rgba(254,127,45,0.2)' },
-  'Deployment':              { bg: 'linear-gradient(135deg, #10b981, #233D4D)', shadow: 'rgba(16,185,129,0.25)' },
-  'Database':                { bg: 'linear-gradient(135deg, #233D4D, #FE7F2D)', shadow: 'rgba(35,61,77,0.4)' },
+  'Programming Languages':   { bg: 'linear-gradient(135deg, hsl(var(--primary)), hsl(var(--secondary)))', shadow: 'hsl(var(--primary) / 0.25)' },
+  'Tools & Technologies':    { bg: 'linear-gradient(135deg, hsl(var(--secondary)), hsl(var(--primary)))', shadow: 'hsl(var(--primary) / 0.2)' },
+  'Deployment':              { bg: 'linear-gradient(135deg, #10b981, hsl(var(--secondary)))', shadow: 'rgba(16,185,129,0.25)' },
+  'Database':                { bg: 'linear-gradient(135deg, hsl(var(--secondary)), hsl(var(--primary)))', shadow: 'hsl(var(--secondary) / 0.4)' },
 }
 
-const DEFAULT_COLOR = { bg: 'linear-gradient(135deg, #FE7F2D, #233D4D)', shadow: 'rgba(254,127,45,0.2)' }
+const DEFAULT_COLOR = { bg: 'linear-gradient(135deg, hsl(var(--primary)), hsl(var(--secondary)))', shadow: 'hsl(var(--primary) / 0.2)' }
 
 interface SkillsGridProps {
   groupedSkills: Record<string, Skill[]>
@@ -44,13 +44,13 @@ function SkillBar({ skill, index }: SkillBarProps) {
       <div className="flex items-center justify-between mb-3">
         <div className="flex items-center gap-3">
           <div className="w-8 h-8 rounded-xl border border-white/10 flex items-center justify-center p-1.5 flex-shrink-0"
-            style={{ background: 'rgba(254,127,45,0.06)' }}
+            style={{ background: 'hsl(var(--primary) / 0.06)' }}
           >
             <SkillIcon name={skill.name} icon={skill.icon} size={20} />
           </div>
           <span className="font-semibold text-sm text-slate-200">{skill.name}</span>
         </div>
-        <span className="text-xs font-bold" style={{ color: '#FE7F2D' }}>{skill.percentage ?? 80}%</span>
+        <span className="text-xs font-bold" style={{ color: 'hsl(var(--primary))' }}>{skill.percentage ?? 80}%</span>
       </div>
       <div className="skill-bar">
         <motion.div
@@ -78,7 +78,7 @@ export function SkillsGrid({ groupedSkills }: SkillsGridProps) {
         <FadeIn className="mb-12 text-center">
           {/* Section badge — orange */}
           <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full glass text-xs font-semibold uppercase tracking-widest mb-4"
-            style={{ border: '1px solid rgba(254,127,45,0.25)', color: '#FE7F2D' }}
+            style={{ border: '1px solid hsl(var(--primary) / 0.25)', color: 'hsl(var(--primary))' }}
           >
             <Code2 size={10} />
             Technical Skills
@@ -100,9 +100,9 @@ export function SkillsGrid({ groupedSkills }: SkillsGridProps) {
                 onClick={() => setActiveCategory(cat)}
                 className="px-4 py-2 rounded-xl text-sm font-medium transition-all"
                 style={activeCategory === cat ? {
-                  background: 'linear-gradient(135deg, #FE7F2D 0%, #e06520 100%)',
+                  background: 'linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--primary) / 0.9) 100%)',
                   color: '#000',
-                  boxShadow: '0 4px 16px rgba(254,127,45,0.3)',
+                  boxShadow: '0 4px 16px hsl(var(--primary) / 0.3)',
                 } : {
                   background: 'rgba(255,255,255,0.03)',
                   border: '1px solid rgba(255,255,255,0.1)',
@@ -120,7 +120,7 @@ export function SkillsGrid({ groupedSkills }: SkillsGridProps) {
         {/* Skills grid */}
         {categories.length === 0 ? (
           <div className="glass-card p-12 text-center max-w-md mx-auto">
-            <Code2 size={36} className="mx-auto mb-3 opacity-60" style={{ color: '#FE7F2D' }} />
+            <Code2 size={36} className="mx-auto mb-3 opacity-60" style={{ color: 'hsl(var(--primary))' }} />
             <p className="text-slate-400 text-sm">No skills added yet.</p>
             <p className="text-slate-500 text-xs mt-1">Add your skills from the Admin Panel to display them here.</p>
           </div>

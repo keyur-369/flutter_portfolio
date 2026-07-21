@@ -45,7 +45,7 @@ const statuses = [
       <section className="section py-24">
         <div className="container-custom">
           <FadeIn className="text-center mb-12">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full glass border border-violet-500/30 text-xs font-semibold text-violet-300 uppercase tracking-widest mb-4">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full glass border border-secondary/30 text-xs font-semibold text-secondary/90 uppercase tracking-widest mb-4">
               <Layers size={10} />
               Portfolio
             </div>
@@ -78,7 +78,7 @@ const statuses = [
                     className={cn(
                       'px-4 py-2 rounded-xl text-sm font-medium transition-all',
                       filter === status
-                        ? 'bg-gradient-to-r from-blue-500 to-violet-600 text-white shadow-lg shadow-indigo-500/25'
+                        ? 'bg-gradient-to-r from-primary to-secondary text-white shadow-lg shadow-primary/25'
                         : 'glass border border-white/10 text-slate-400 hover:text-white'
                     )}
                   >
@@ -92,7 +92,7 @@ const statuses = [
           {/* Projects Grid */}
           {initialProjects.length === 0 ? (
             <div className="glass-card p-16 text-center max-w-md mx-auto">
-              <FolderOpen size={40} className="text-indigo-400 mx-auto mb-4 opacity-60" />
+              <FolderOpen size={40} className="text-primary/70 mx-auto mb-4 opacity-60" />
               <h3 className="font-display font-bold text-xl text-white mb-2">No Projects Added Yet</h3>
               <p className="text-slate-400 text-sm mb-6">
                 Go to your Admin Panel to add your projects to Supabase.
@@ -109,7 +109,7 @@ const statuses = [
                     <TiltCard className="h-full">
                       <div
                         onClick={() => setSelectedProject(project)}
-                        className="glass-card h-full flex flex-col overflow-hidden border border-white/10 rounded-3xl transition-all duration-300 hover:border-violet-500/40 hover:shadow-2xl hover:shadow-indigo-500/10 cursor-pointer group"
+                        className="glass-card h-full flex flex-col overflow-hidden border border-white/10 rounded-3xl transition-all duration-300 hover:border-primary/40 hover:shadow-2xl hover:shadow-primary/10 cursor-pointer group"
                       >
                         {/* Banner Image / Cover */}
                         <div className="relative aspect-[16/9] w-full overflow-hidden bg-slate-900 border-b border-white/[0.08]">

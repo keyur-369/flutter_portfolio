@@ -1,5 +1,6 @@
 import { supabase } from '@/lib/supabase'
 import type { Blog } from '@/types/database'
+import { triggerRevalidate } from '@/lib/utils'
 
 let blogCache: { data: Blog[]; timestamp: number } | null = null
 const CACHE_TTL = 300000 // 5 minutes
@@ -56,6 +57,7 @@ export const blogService = {
       console.error('blogService.create error:', error.message)
       return { data: null, error: error.message }
     }
+    triggerRevalidate()
     return { data, error: null }
   },
 
@@ -66,6 +68,7 @@ export const blogService = {
       console.error('blogService.update error:', error.message)
       return { data: null, error: error.message }
     }
+    triggerRevalidate()
     return { data, error: null }
   },
 
@@ -73,6 +76,7 @@ export const blogService = {
     this.clearCache()
     const { error } = await supabase.from('blogs').update({ published }).eq('id', id)
     if (error) { console.error('blogService.togglePublish error:', error.message); return false }
+    triggerRevalidate()
     return true
   },
 
@@ -80,6 +84,7 @@ export const blogService = {
     this.clearCache()
     const { error } = await supabase.from('blogs').delete().eq('id', id)
     if (error) { console.error('blogService.delete error:', error.message); return false }
+    triggerRevalidate()
     return true
   },
 

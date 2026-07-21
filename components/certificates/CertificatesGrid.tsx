@@ -27,18 +27,18 @@ function isImageUrl(url: string | null | undefined): boolean {
 function getIssuerBrand(issuer: string | null | undefined, url: string | null | undefined) {
   const text = `${issuer ?? ''} ${url ?? ''}`.toLowerCase()
   if (text.includes('udemy') || text.includes('ude.my')) {
-    return { name: 'Udemy', color: 'from-purple-600 to-pink-600', logo: 'https://cdn.simpleicons.org/udemy' }
+    return { name: 'Udemy', color: 'from-primary to-secondary', logo: 'https://cdn.simpleicons.org/udemy' }
   }
   if (text.includes('coursera')) {
-    return { name: 'Coursera', color: 'from-blue-600 to-cyan-600', logo: 'https://cdn.simpleicons.org/coursera' }
+    return { name: 'Coursera', color: 'from-primary to-secondary', logo: 'https://cdn.simpleicons.org/coursera' }
   }
   if (text.includes('google')) {
     return { name: 'Google', color: 'from-amber-500 to-rose-500', logo: 'https://cdn.simpleicons.org/google' }
   }
   if (text.includes('linkedin')) {
-    return { name: 'LinkedIn', color: 'from-blue-700 to-indigo-700', logo: 'https://cdn.simpleicons.org/linkedin' }
+    return { name: 'LinkedIn', color: 'from-primary to-secondary', logo: 'https://cdn.simpleicons.org/linkedin' }
   }
-  return { name: issuer || 'Verified', color: 'from-indigo-600 to-violet-600', logo: null }
+  return { name: issuer || 'Verified', color: 'from-primary to-secondary', logo: null }
 }
 
 interface CertificatesGridProps {

@@ -9,9 +9,9 @@ import { formatDate, estimateReadTime } from '@/lib/utils'
 import type { Blog } from '@/types/database'
 
 const BLOG_GRADIENTS = [
-  'from-blue-500/20 to-indigo-500/20',
-  'from-violet-500/20 to-purple-500/20',
-  'from-pink-500/20 to-rose-500/20',
+  'from-primary/20 to-secondary/20',
+  'from-primary/20 to-secondary/20',
+  'from-primary/20 to-secondary/20',
 ]
 
 interface BlogsClientProps {
@@ -33,7 +33,7 @@ export function BlogsClient({ blogs }: BlogsClientProps) {
     <section className="section py-24">
       <div className="container-custom">
         <FadeIn className="text-center mb-12">
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full glass border border-blue-500/30 text-xs font-semibold text-blue-300 uppercase tracking-widest mb-4">
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full glass border border-primary/30 text-xs font-semibold text-primary/90 uppercase tracking-widest mb-4">
             <BookOpen size={10} />
             Blog
           </div>
@@ -62,7 +62,7 @@ export function BlogsClient({ blogs }: BlogsClientProps) {
 
         {blogs.length === 0 ? (
           <div className="glass-card p-12 text-center max-w-md mx-auto">
-            <BookOpen size={36} className="text-indigo-400 mx-auto mb-3 opacity-60" />
+            <BookOpen size={36} className="text-primary/70 mx-auto mb-3 opacity-60" />
             <p className="text-slate-400 text-sm">No articles published yet.</p>
             <p className="text-slate-500 text-xs mt-1">Publish articles from your Admin Panel to render them here.</p>
           </div>
@@ -101,7 +101,7 @@ export function BlogsClient({ blogs }: BlogsClientProps) {
                           {blog.description}
                         </p>
 
-                        <span className="flex items-center gap-1.5 text-sm font-semibold text-indigo-400 group-hover:text-indigo-300 transition-colors mt-auto">
+                        <span className="flex items-center gap-1.5 text-sm font-semibold text-primary/70 group-hover:text-primary transition-colors mt-auto">
                           Read Article <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
                         </span>
                       </div>

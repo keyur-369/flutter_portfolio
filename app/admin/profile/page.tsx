@@ -115,7 +115,7 @@ export default function AdminProfilePage() {
   if (loading) {
     return (
       <div className="flex items-center justify-center h-64">
-        <div className="w-8 h-8 border-2 border-indigo-500/30 border-t-indigo-500 rounded-full animate-spin" />
+        <div className="w-8 h-8 border-2 border-primary/30 border-t-primary rounded-full animate-spin" />
       </div>
     )
   }
@@ -130,7 +130,7 @@ export default function AdminProfilePage() {
       {/* Avatar Photo Header Card */}
       <div className="glass-card p-6 mb-6 border border-white/10 rounded-2xl">
         <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
-          <div className="w-24 h-24 rounded-2xl bg-gradient-to-br from-blue-500 to-violet-600 flex items-center justify-center overflow-hidden flex-shrink-0 border-2 border-indigo-500/40 shadow-xl relative group">
+          <div className="w-24 h-24 rounded-2xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center overflow-hidden flex-shrink-0 border-2 border-primary/40 shadow-xl relative group">
             {imageUrlInput ? (
               <img src={imageUrlInput} alt="Profile Avatar" className="w-full h-full object-cover" />
             ) : (
@@ -142,7 +142,7 @@ export default function AdminProfilePage() {
                 onClick={() => setCropImageSrc(imageUrlInput)}
                 className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 flex flex-col items-center justify-center text-white text-xs font-semibold transition-opacity"
               >
-                <Crop size={16} className="mb-1 text-indigo-300" />
+                <Crop size={16} className="mb-1 text-primary/70" />
                 Recrop
               </button>
             )}
@@ -151,7 +151,7 @@ export default function AdminProfilePage() {
           <div className="space-y-3 flex-1 w-full">
             <div>
               <p className="font-bold text-lg text-white">{profile?.full_name ?? 'Keyur Mistry'}</p>
-              <p className="text-xs text-indigo-400 font-medium">{profile?.title ?? 'Flutter & Full Stack Developer'}</p>
+              <p className="text-xs text-primary/70 font-medium">{profile?.title ?? 'Flutter & Full Stack Developer'}</p>
             </div>
 
             <div className="flex flex-wrap items-center gap-3">
@@ -249,12 +249,12 @@ export default function AdminProfilePage() {
         {/* Resume upload */}
         <div className="pt-4 border-t border-white/[0.08] space-y-3">
           <label className="text-xs font-semibold text-slate-200 block flex items-center gap-2">
-            <FileText size={14} className="text-indigo-400" />
+            <FileText size={14} className="text-primary/70" />
             Resume PDF File
           </label>
           {profile?.resume_url && (
             <div className="flex items-center gap-3">
-              <a href={profile.resume_url} target="_blank" rel="noopener noreferrer" className="text-xs text-indigo-400 hover:text-indigo-300 font-medium">
+              <a href={profile.resume_url} target="_blank" rel="noopener noreferrer" className="text-xs text-primary/70 hover:text-primary font-medium">
                 Current attached resume PDF →
               </a>
             </div>

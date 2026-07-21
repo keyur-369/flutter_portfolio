@@ -34,11 +34,11 @@ export function CallToAction({ profile }: CallToActionProps) {
               >
                 {/* Personal Avatar Badge */}
                 <div className="flex items-center gap-3 glass px-4 py-2 rounded-full border border-white/10 mb-8 shadow-xl">
-                  <div className="w-8 h-8 rounded-full overflow-hidden flex items-center justify-center flex-shrink-0" style={{ border: '1px solid rgba(254,127,45,0.4)', background: 'rgba(0,0,0,0.5)' }}>
+                  <div className="w-8 h-8 rounded-full overflow-hidden flex items-center justify-center flex-shrink-0" style={{ border: '1px solid hsla(var(--primary), 0.4)', background: 'rgba(0,0,0,0.5)' }}>
                     {avatar ? (
                       <img src={avatar} alt={name} className="w-full h-full object-cover" />
                     ) : (
-                      <User size={16} style={{ color: '#FE7F2D' }} />
+                      <User size={16} style={{ color: 'hsl(var(--primary))' }} />
                     )}
                   </div>
                   <span className="text-xs font-semibold text-slate-200">

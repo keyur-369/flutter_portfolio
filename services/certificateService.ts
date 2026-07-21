@@ -1,5 +1,6 @@
 import { supabase } from '@/lib/supabase'
 import type { Certificate } from '@/types/database'
+import { triggerRevalidate } from '@/lib/utils'
 
 let certsCache: { data: Certificate[]; timestamp: number } | null = null
 const CACHE_TTL = 300000 // 5 minutes
@@ -44,6 +45,7 @@ export const certificateService = {
         console.error('certificateService.create error:', error.message)
         return { data: null, error: error.message }
       }
+      triggerRevalidate()
       return { data, error: null }
     } catch (err: any) {
       return { data: null, error: err?.message || 'Network error' }
@@ -58,6 +60,7 @@ export const certificateService = {
         console.error('certificateService.update error:', error.message)
         return { data: null, error: error.message }
       }
+      triggerRevalidate()
       return { data, error: null }
     } catch (err: any) {
       return { data: null, error: err?.message || 'Network error' }
@@ -69,6 +72,7 @@ export const certificateService = {
     try {
       const { error } = await supabase.from('certificates').delete().eq('id', id)
       if (error) { console.error('certificateService.delete error:', error.message); return false }
+      triggerRevalidate()
       return true
     } catch {
       return false

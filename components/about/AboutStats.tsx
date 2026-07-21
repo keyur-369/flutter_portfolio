@@ -40,9 +40,9 @@ export function AboutStats({
   certsCount = 0,
 }: AboutStatsProps) {
   const stats = [
-    { icon: Clock, value: expCount, suffix: '+', label: 'Years of Experience', color: 'from-blue-500 to-cyan-500' },
-    { icon: Layers, value: projectsCount, suffix: '+', label: 'Projects Completed', color: 'from-violet-500 to-purple-500' },
-    { icon: Code2, value: skillsCount, suffix: '+', label: 'Technologies', color: 'from-pink-500 to-rose-500' },
+    { icon: Clock, value: expCount, suffix: '+', label: 'Years of Experience', color: 'from-primary to-secondary' },
+    { icon: Layers, value: projectsCount, suffix: '+', label: 'Projects Completed', color: 'from-primary to-secondary' },
+    { icon: Code2, value: skillsCount, suffix: '+', label: 'Technologies', color: 'from-primary to-secondary' },
     { icon: Award, value: certsCount, suffix: '', label: 'Certificates', color: 'from-amber-500 to-orange-500' },
     { icon: Cpu, value: eduCount, suffix: '', label: 'Degrees Pursued', color: 'from-indigo-500 to-blue-500' },
   ]

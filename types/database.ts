@@ -137,6 +137,7 @@ export interface WebsiteSettings {
   favicon?: string | null
   primary_color?: string | null
   secondary_color?: string | null
+  background_color?: string | null
   seo_keywords?: string | null
   google_analytics?: string | null
   created_at?: string

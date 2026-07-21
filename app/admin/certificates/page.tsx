@@ -28,15 +28,15 @@ function isImageUrl(url: string | null | undefined): boolean {
 function getIssuerBrand(issuer: string | null | undefined, url: string | null | undefined) {
   const text = `${issuer ?? ''} ${url ?? ''}`.toLowerCase()
   if (text.includes('udemy') || text.includes('ude.my')) {
-    return { name: 'Udemy', color: 'from-purple-600 to-pink-600', logo: 'https://cdn.simpleicons.org/udemy' }
+    return { name: 'Udemy', color: 'from-primary to-secondary', logo: 'https://cdn.simpleicons.org/udemy' }
   }
   if (text.includes('coursera')) {
-    return { name: 'Coursera', color: 'from-blue-600 to-cyan-600', logo: 'https://cdn.simpleicons.org/coursera' }
+    return { name: 'Coursera', color: 'from-primary to-secondary', logo: 'https://cdn.simpleicons.org/coursera' }
   }
   if (text.includes('google')) {
     return { name: 'Google', color: 'from-amber-500 to-rose-500', logo: 'https://cdn.simpleicons.org/google' }
   }
-  return { name: issuer || 'Verified', color: 'from-indigo-600 to-violet-600', logo: null }
+  return { name: issuer || 'Verified', color: 'from-primary to-secondary', logo: null }
 }
 
 function CertForm({ item, onClose, onSave }: { item?: Certificate | null; onClose: () => void; onSave: () => void }) {
@@ -247,7 +247,7 @@ export default function AdminCertificatesPage() {
 
       {loading ? (
         <div className="flex items-center justify-center h-48">
-          <div className="w-8 h-8 border-2 border-indigo-500/30 border-t-indigo-500 rounded-full animate-spin" />
+          <div className="w-8 h-8 border-2 border-primary/30 border-t-primary rounded-full animate-spin" />
         </div>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -277,7 +277,7 @@ export default function AdminCertificatesPage() {
                 </div>
 
                 <h3 className="font-bold text-base text-white mb-1 line-clamp-2">{cert.title || 'Certificate'}</h3>
-                {cert.issuer && <p className="text-xs text-indigo-400 font-medium mb-1">{cert.issuer}</p>}
+                {cert.issuer && <p className="text-xs text-primary/70 font-medium mb-1">{cert.issuer}</p>}
                 {cert.issue_date && <p className="text-xs text-slate-400 mb-4">{formatDate(cert.issue_date)}</p>}
 
                 <div className="flex gap-2 mt-auto pt-3 border-t border-white/[0.08]">

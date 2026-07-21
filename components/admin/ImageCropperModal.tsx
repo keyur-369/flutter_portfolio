@@ -173,7 +173,7 @@ export function ImageCropperModal({ imageSrc: initialImageSrc, onClose, onCropCo
           </button>
 
           <h3 className="font-display font-bold text-xl text-white mb-1 flex items-center gap-2">
-            <Crop size={18} className="text-indigo-400" />
+            <Crop size={18} className="text-primary/70" />
             Crop Profile Avatar
           </h3>
           <p className="text-xs text-slate-400 mb-6 text-center">
@@ -183,7 +183,7 @@ export function ImageCropperModal({ imageSrc: initialImageSrc, onClose, onCropCo
           {/* Interactive Crop Viewport Frame */}
           <div
             ref={viewportRef}
-            className="relative w-64 h-64 sm:w-72 sm:h-72 rounded-full border-2 border-indigo-500 overflow-hidden shadow-2xl cursor-grab active:cursor-grabbing bg-slate-950 flex items-center justify-center select-none"
+            className="relative w-64 h-64 sm:w-72 sm:h-72 rounded-full border-2 border-primary overflow-hidden shadow-2xl cursor-grab active:cursor-grabbing bg-slate-950 flex items-center justify-center select-none"
             onMouseDown={handleMouseDown}
             onMouseMove={handleMouseMove}
             onMouseUp={handleMouseUp}
@@ -203,15 +203,15 @@ export function ImageCropperModal({ imageSrc: initialImageSrc, onClose, onCropCo
             />
 
             {/* Circular Crop Mask & Crosshair Guide */}
-            <div className="absolute inset-0 rounded-full border-2 border-indigo-400/80 pointer-events-none shadow-[0_0_0_9999px_rgba(0,0,0,0.6)]" />
+            <div className="absolute inset-0 rounded-full border-2 border-primary/80 pointer-events-none shadow-[0_0_0_9999px_rgba(0,0,0,0.6)]" />
           </div>
 
           {/* Zoom Slider & Reset */}
           <div className="w-full mt-5 space-y-2">
             <div className="flex items-center justify-between text-xs text-slate-300 font-medium">
-              <span className="flex items-center gap-1.5"><ZoomIn size={14} className="text-indigo-400" /> Zoom Scale</span>
+              <span className="flex items-center gap-1.5"><ZoomIn size={14} className="text-primary/70" /> Zoom Scale</span>
               <div className="flex items-center gap-3">
-                <button onClick={resetTransform} className="text-[11px] text-indigo-400 hover:text-indigo-300 flex items-center gap-1">
+                <button onClick={resetTransform} className="text-[11px] text-primary/70 hover:text-primary flex items-center gap-1">
                   <RotateCcw size={10} /> Reset Position
                 </button>
                 <span>{zoom.toFixed(1)}x</span>
@@ -224,7 +224,7 @@ export function ImageCropperModal({ imageSrc: initialImageSrc, onClose, onCropCo
               step="0.05"
               value={zoom}
               onChange={(e) => setZoom(parseFloat(e.target.value))}
-              className="w-full accent-indigo-500 cursor-pointer"
+              className="w-full accent-primary cursor-pointer"
             />
           </div>
 
@@ -233,13 +233,13 @@ export function ImageCropperModal({ imageSrc: initialImageSrc, onClose, onCropCo
             type="button"
             onClick={handleRemoveBackground}
             disabled={isProcessingBg || isBgRemoved}
-            className="w-full mt-4 py-2 px-3 rounded-xl glass border border-purple-500/30 text-xs font-semibold text-purple-300 hover:text-white hover:bg-purple-500/10 flex items-center justify-center gap-2 transition-all disabled:opacity-50"
+            className="w-full mt-4 py-2 px-3 rounded-xl glass border border-secondary/30 text-xs font-semibold text-secondary/90 hover:text-white hover:bg-secondary/10 flex items-center justify-center gap-2 transition-all disabled:opacity-50"
           >
             {isProcessingBg ? (
-              <div className="w-4 h-4 border-2 border-purple-400/30 border-t-purple-400 rounded-full animate-spin" />
+              <div className="w-4 h-4 border-2 border-secondary/30 border-t-secondary rounded-full animate-spin" />
             ) : (
               <>
-                <Wand2 size={14} className="text-purple-400" />
+                <Wand2 size={14} className="text-secondary" />
                 <span>{isBgRemoved ? '✓ Background Removed (Transparent PNG)' : '✨ Remove Background (Transparent)'}</span>
               </>
             )}
@@ -253,7 +253,7 @@ export function ImageCropperModal({ imageSrc: initialImageSrc, onClose, onCropCo
             <button onClick={onClose} className="btn-ghost flex-1 justify-center text-xs py-2.5">
               Cancel
             </button>
-            <button onClick={handleSaveCrop} className="btn-primary flex-1 justify-center text-xs py-2.5 bg-gradient-to-r from-blue-500 to-indigo-600 border-none font-bold shadow-lg">
+            <button onClick={handleSaveCrop} className="btn-primary flex-1 justify-center text-xs py-2.5 bg-gradient-to-r from-primary to-secondary border-none font-bold shadow-lg">
               <Check size={14} /> Crop & Save Avatar
             </button>
           </div>

@@ -21,7 +21,7 @@ export function FeaturedProjects({ projects }: FeaturedProjectsProps) {
       <section className="section py-16">
         <div className="container-custom">
           <FadeIn className="text-center mb-8">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full glass text-xs font-semibold uppercase tracking-widest mb-4" style={{ border: '1px solid rgba(254,127,45,0.25)', color: '#FE7F2D' }}>
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full glass text-xs font-semibold uppercase tracking-widest mb-4" style={{ border: '1px solid hsl(var(--primary) / 0.25)', color: 'hsl(var(--primary))' }}>
               <Star size={10} />
               Featured Work
             </div>
@@ -30,7 +30,7 @@ export function FeaturedProjects({ projects }: FeaturedProjectsProps) {
             </h2>
           </FadeIn>
           <div className="glass-card p-12 text-center max-w-md mx-auto">
-            <FolderOpen size={36} className="mx-auto mb-3 opacity-60" style={{ color: '#FE7F2D' }} />
+            <FolderOpen size={36} className="mx-auto mb-3 opacity-60" style={{ color: 'hsl(var(--primary))' }} />
             <p className="text-slate-400 text-sm">No featured projects added yet.</p>
             <p className="text-slate-500 text-xs mt-1">Add projects from your Admin Panel to showcase them here.</p>
           </div>
@@ -44,7 +44,7 @@ export function FeaturedProjects({ projects }: FeaturedProjectsProps) {
       <section className="section py-24">
         <div className="container-custom">
           <FadeIn className="text-center mb-16">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full glass border border-violet-500/30 text-xs font-semibold text-violet-300 uppercase tracking-widest mb-4">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full glass border border-secondary/30 text-xs font-semibold text-secondary/90 uppercase tracking-widest mb-4">
               <Star size={10} />
               Featured Work
             </div>
@@ -64,7 +64,7 @@ export function FeaturedProjects({ projects }: FeaturedProjectsProps) {
                     onClick={() => setSelectedProject(project)}
                     className="glass-card h-full flex flex-col overflow-hidden border border-white/10 rounded-3xl transition-all duration-300 cursor-pointer group"
                     style={{ transition: 'border-color 0.3s, box-shadow 0.3s' }}
-                    onMouseEnter={e => { (e.currentTarget as HTMLElement).style.borderColor = 'rgba(254,127,45,0.35)'; (e.currentTarget as HTMLElement).style.boxShadow = '0 20px 60px rgba(254,127,45,0.08)' }}
+                    onMouseEnter={e => { (e.currentTarget as HTMLElement).style.borderColor = 'hsl(var(--primary) / 0.35)'; (e.currentTarget as HTMLElement).style.boxShadow = '0 20px 60px hsl(var(--primary) / 0.08)' }}
                     onMouseLeave={e => { (e.currentTarget as HTMLElement).style.borderColor = 'rgba(255,255,255,0.1)'; (e.currentTarget as HTMLElement).style.boxShadow = '' }}
                   >
                     {/* Banner Image / Cover */}
@@ -161,9 +161,9 @@ export function FeaturedProjects({ projects }: FeaturedProjectsProps) {
                       </div>
 
                       {/* Bottom CTA */}
-                      <div className="flex items-center justify-between text-sm font-semibold transition-colors pt-4 border-t border-white/[0.08] mt-auto" style={{ color: 'rgba(254,127,45,0.8)' }}
-                        onMouseEnter={e => (e.currentTarget as HTMLElement).style.color = '#FE7F2D'}
-                        onMouseLeave={e => (e.currentTarget as HTMLElement).style.color = 'rgba(254,127,45,0.8)'}
+                      <div className="flex items-center justify-between text-sm font-semibold transition-colors pt-4 border-t border-white/[0.08] mt-auto" style={{ color: 'hsl(var(--primary) / 0.8)' }}
+                        onMouseEnter={e => (e.currentTarget as HTMLElement).style.color = 'hsl(var(--primary))'}
+                        onMouseLeave={e => (e.currentTarget as HTMLElement).style.color = 'hsl(var(--primary) / 0.8)'}
                       >
                         <span>View Details & Case Study</span>
                         <ArrowRight

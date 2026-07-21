@@ -14,7 +14,7 @@ export function TestimonialsClient({ testimonials }: TestimonialsClientProps) {
     <section className="section py-24">
       <div className="container-custom">
         <FadeIn className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full glass border border-pink-500/30 text-xs font-semibold text-pink-300 uppercase tracking-widest mb-4">
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full glass border border-secondary/30 text-xs font-semibold text-secondary/90 uppercase tracking-widest mb-4">
             <MessageSquare size={10} />
             Testimonials
           </div>
@@ -45,12 +45,12 @@ export function TestimonialsClient({ testimonials }: TestimonialsClientProps) {
                         <Star key={j} size={14} className="text-amber-400 fill-amber-400" />
                       ))}
                     </div>
-                    <Quote size={24} className="text-indigo-400/40 mb-3" />
+                    <Quote size={24} className="text-primary/40 mb-3" />
                     <p className="text-white/70 text-sm leading-relaxed italic flex-1 mb-6">
                       &ldquo;{t.review}&rdquo;
                     </p>
                     <div className="flex items-center gap-3 pt-4 border-t border-white/[0.06]">
-                      <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-violet-600 flex items-center justify-center text-white font-bold text-sm flex-shrink-0">
+                      <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-white font-bold text-sm flex-shrink-0">
                         {t.client_name?.charAt(0) ?? '?'}
                       </div>
                       <div>

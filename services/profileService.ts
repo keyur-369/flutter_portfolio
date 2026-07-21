@@ -1,5 +1,6 @@
 import { supabase } from '@/lib/supabase'
 import type { Profile } from '@/types/database'
+import { triggerRevalidate } from '@/lib/utils'
 
 export const profileService = {
   async get(): Promise<Profile | null> {
@@ -25,6 +26,7 @@ export const profileService = {
       console.error('profileService.update error:', error)
       return null
     }
+    triggerRevalidate()
     return data
   },
 
@@ -38,6 +40,7 @@ export const profileService = {
       console.error('profileService.create error:', error)
       return null
     }
+    triggerRevalidate()
     return data
   },
 

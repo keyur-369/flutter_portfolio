@@ -76,7 +76,7 @@ function SkillForm({ skill, onClose, onSave }: { skill?: Skill | null; onClose: 
           <div className="glass-card p-4 rounded-2xl border border-white/10 bg-white/[0.02]">
             <label className="text-xs font-semibold text-slate-200 mb-2 block flex items-center justify-between">
               <span>Official Brand Icon</span>
-              <span className="text-[10px] text-indigo-400 font-normal flex items-center gap-1">
+              <span className="text-[10px] text-primary/70 font-normal flex items-center gap-1">
                 <Sparkles size={10} /> Auto-Detects Logo
               </span>
             </label>
@@ -100,7 +100,7 @@ function SkillForm({ skill, onClose, onSave }: { skill?: Skill | null; onClose: 
                 placeholder="Or paste direct image URL / emoji (optional)"
               />
               <div className="flex items-center justify-between pt-1">
-                <label className="text-[11px] text-indigo-400 hover:text-indigo-300 cursor-pointer flex items-center gap-1 font-medium">
+                <label className="text-[11px] text-primary/70 hover:text-primary cursor-pointer flex items-center gap-1 font-medium">
                   <Upload size={12} /> Upload Custom Icon File
                   <input type="file" accept="image/*" onChange={handleImageUpload} className="hidden" />
                 </label>
@@ -161,7 +161,7 @@ export default function AdminSkillsPage() {
 
       {loading ? (
         <div className="flex items-center justify-center h-40">
-          <div className="w-8 h-8 border-2 border-indigo-500/30 border-t-indigo-500 rounded-full animate-spin" />
+          <div className="w-8 h-8 border-2 border-primary/30 border-t-primary rounded-full animate-spin" />
         </div>
       ) : (
         Object.entries(grouped).map(([category, categorySkills]) => (
@@ -181,7 +181,7 @@ export default function AdminSkillsPage() {
                         <div className="skill-bar-fill" style={{ width: `${skill.percentage ?? 80}%` }} />
                       </div>
                     </div>
-                    <span className="text-xs font-bold text-indigo-400 flex-shrink-0">{skill.percentage ?? 80}%</span>
+                    <span className="text-xs font-bold text-primary/70 flex-shrink-0">{skill.percentage ?? 80}%</span>
                   </div>
                   <div className="flex gap-1 flex-shrink-0">
                     <button onClick={() => { setEditingSkill(skill); setShowForm(true) }} className="p-1.5 rounded-lg glass text-slate-400 hover:text-white"><Edit size={12} /></button>

@@ -1,5 +1,6 @@
 import { supabase } from '@/lib/supabase'
 import type { Skill } from '@/types/database'
+import { triggerRevalidate } from '@/lib/utils'
 
 let skillsCache: { data: Skill[]; timestamp: number } | null = null
 const CACHE_TTL = 300000 // 5 minutes
@@ -57,6 +58,7 @@ export const skillsService = {
       console.error('skillsService.create error:', error.message)
       return { data: null, error: error.message }
     }
+    triggerRevalidate()
     return { data, error: null }
   },
 
@@ -67,6 +69,7 @@ export const skillsService = {
       console.error('skillsService.update error:', error.message)
       return { data: null, error: error.message }
     }
+    triggerRevalidate()
     return { data, error: null }
   },
 
@@ -74,6 +77,7 @@ export const skillsService = {
     this.clearCache()
     const { error } = await supabase.from('skills').delete().eq('id', id)
     if (error) { console.error('skillsService.delete error:', error.message); return false }
+    triggerRevalidate()
     return true
   },
 }

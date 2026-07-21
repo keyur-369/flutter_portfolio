@@ -43,7 +43,7 @@ function BlogForm({ item, onClose, onSave }: { item?: Blog | null; onClose: () =
           <div><label className="text-sm text-white/60 mb-1 block">Description</label><textarea {...register('description')} rows={2} className="input-glass resize-none" placeholder="Brief description..." /></div>
           <div><label className="text-sm text-white/60 mb-1 block">Content (Markdown)</label><textarea {...register('content')} rows={10} className="input-glass resize-none font-mono text-sm" placeholder="# Your blog post content in Markdown..." /></div>
           <label className="flex items-center gap-2 cursor-pointer">
-            <input type="checkbox" {...register('published')} className="w-4 h-4 accent-indigo-500" />
+            <input type="checkbox" {...register('published')} className="w-4 h-4 accent-primary" />
             <span className="text-sm text-white/70">Publish immediately</span>
           </label>
           <div className="flex gap-3 pt-2">
@@ -86,7 +86,7 @@ export default function AdminBlogsPage() {
           <p className="text-white/50 text-sm">{items.length} posts</p></div>
         <button onClick={() => { setEditing(null); setShowForm(true) }} className="btn-primary"><Plus size={16} /> New Post</button>
       </div>
-      {loading ? <div className="flex items-center justify-center h-40"><div className="w-8 h-8 border-2 border-indigo-500/30 border-t-indigo-500 rounded-full animate-spin" /></div> : (
+      {loading ? <div className="flex items-center justify-center h-40"><div className="w-8 h-8 border-2 border-primary/30 border-t-primary rounded-full animate-spin" /></div> : (
         <div className="space-y-3">
           {items.map((blog, i) => (
             <motion.div key={blog.id} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.05 }}

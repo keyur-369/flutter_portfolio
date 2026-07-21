@@ -44,7 +44,7 @@ export default function AdminMessagesPage() {
         <div className="lg:col-span-2 space-y-2">
           {loading ? (
             <div className="flex items-center justify-center h-40">
-              <div className="w-6 h-6 border-2 border-indigo-500/30 border-t-indigo-500 rounded-full animate-spin" />
+              <div className="w-6 h-6 border-2 border-primary/30 border-t-primary rounded-full animate-spin" />
             </div>
           ) : messages.length === 0 ? (
             <div className="text-center py-12 glass-card">
@@ -57,12 +57,12 @@ export default function AdminMessagesPage() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 onClick={() => { setSelected(msg); if (!msg.is_read) handleMarkRead(msg) }}
-                className={`glass-card p-4 cursor-pointer transition-all hover:border-indigo-500/30 ${selected?.id === msg.id ? 'border-indigo-500/50 bg-indigo-500/5' : ''}`}
+                className={`glass-card p-4 cursor-pointer transition-all hover:border-primary/30 ${selected?.id === msg.id ? 'border-primary/50 bg-primary/5' : ''}`}
               >
                 <div className="flex items-start justify-between gap-2 mb-1">
                   <p className="font-semibold text-sm text-white">{msg.name}</p>
                   <div className="flex items-center gap-1.5 flex-shrink-0">
-                    {!msg.is_read && <span className="w-2 h-2 rounded-full bg-blue-400" />}
+                    {!msg.is_read && <span className="w-2 h-2 rounded-full bg-primary" />}
                     <span className="text-xs text-white/30">{formatDate(msg.created_at)}</span>
                   </div>
                 </div>
@@ -80,7 +80,7 @@ export default function AdminMessagesPage() {
               <div className="flex items-start justify-between mb-6">
                 <div>
                   <h3 className="font-bold text-xl text-white mb-1">{selected.name}</h3>
-                  <a href={`mailto:${selected.email}`} className="text-indigo-400 text-sm hover:text-indigo-300">{selected.email}</a>
+                  <a href={`mailto:${selected.email}`} className="text-primary/70 text-sm hover:text-primary">{selected.email}</a>
                 </div>
                 <div className="flex gap-2">
                   {!selected.is_read && (

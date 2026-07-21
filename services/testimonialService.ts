@@ -1,5 +1,6 @@
 import { supabase } from '@/lib/supabase'
 import type { Testimonial } from '@/types/database'
+import { triggerRevalidate } from '@/lib/utils'
 
 export const testimonialService = {
   async getAll(): Promise<Testimonial[]> {
@@ -20,18 +21,21 @@ export const testimonialService = {
   async create(t: Omit<Testimonial, 'id' | 'created_at'>): Promise<Testimonial | null> {
     const { data, error } = await supabase.from('testimonials').insert(t).select().single()
     if (error) { console.error(error); return null }
+    triggerRevalidate()
     return data
   },
 
   async update(id: string, updates: Partial<Testimonial>): Promise<Testimonial | null> {
     const { data, error } = await supabase.from('testimonials').update(updates).eq('id', id).select().single()
     if (error) { console.error(error); return null }
+    triggerRevalidate()
     return data
   },
 
   async delete(id: string): Promise<boolean> {
     const { error } = await supabase.from('testimonials').delete().eq('id', id)
     if (error) { console.error(error); return false }
+    triggerRevalidate()
     return true
   },
 }

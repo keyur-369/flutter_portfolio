@@ -23,9 +23,9 @@ export function HeroSection({ profile }: HeroSectionProps) {
       {/* Background — pure black with subtle orange/teal glows */}
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
         <div className="absolute top-1/4 -left-40 w-[700px] h-[600px] rounded-full blur-[140px]"
-          style={{ background: 'radial-gradient(circle, rgba(254,127,45,0.09) 0%, transparent 70%)' }} />
+          style={{ background: 'radial-gradient(circle, hsl(var(--primary) / 0.09) 0%, transparent 70%)' }} />
         <div className="absolute bottom-0 right-0 w-[600px] h-[500px] rounded-full blur-[140px]"
-          style={{ background: 'radial-gradient(circle, rgba(35,61,77,0.35) 0%, transparent 70%)' }} />
+          style={{ background: 'radial-gradient(circle, hsl(var(--secondary) / 0.35) 0%, transparent 70%)' }} />
       </div>
 
       <div className="container-custom relative z-10 pt-24 pb-12">
@@ -43,9 +43,9 @@ export function HeroSection({ profile }: HeroSectionProps) {
             >
               <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-medium"
                 style={{
-                  border: '1px solid rgba(254,127,45,0.25)',
-                  background: 'rgba(254,127,45,0.06)',
-                  color: '#FE7F2D',
+                  border: '1px solid hsl(var(--primary) / 0.25)',
+                  background: 'hsl(var(--primary) / 0.06)',
+                  color: 'hsl(var(--primary))',
                 }}
               >
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
@@ -68,7 +68,7 @@ export function HeroSection({ profile }: HeroSectionProps) {
                   className="block"
                   style={{
                     fontSize: 'clamp(3.5rem, 8vw, 7rem)',
-                    background: 'linear-gradient(135deg, #FE7F2D 0%, #ffb347 60%, #FE7F2D 100%)',
+                    background: 'linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--primary) / 0.9) 60%, hsl(var(--primary)) 100%)',
                     WebkitBackgroundClip: 'text',
                     WebkitTextFillColor: 'transparent',
                     backgroundClip: 'text',
@@ -84,7 +84,7 @@ export function HeroSection({ profile }: HeroSectionProps) {
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.5, delay: 0.35 }}
                 className="font-cursive text-4xl sm:text-5xl lg:text-6xl font-bold mt-1 ml-1 drop-shadow"
-                style={{ color: 'rgba(254,127,45,0.75)' }}
+                style={{ color: 'hsl(var(--primary) / 0.75)' }}
               >
                 {title}
               </motion.p>
@@ -112,9 +112,9 @@ export function HeroSection({ profile }: HeroSectionProps) {
                 href="/contact"
                 className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl font-semibold text-sm transition-all hover:scale-[1.03] active:scale-[0.98]"
                 style={{
-                  background: 'linear-gradient(135deg, #FE7F2D 0%, #e06520 100%)',
+                  background: 'linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--primary) / 0.9) 100%)',
                   color: '#000',
-                  boxShadow: '0 4px 20px rgba(254,127,45,0.35)',
+                  boxShadow: '0 4px 20px hsl(var(--primary) / 0.35)',
                 }}
               >
                 Hire Me <ArrowUpRight size={16} />
@@ -129,15 +129,15 @@ export function HeroSection({ profile }: HeroSectionProps) {
                   color: '#EAECF0',
                 }}
                 onMouseEnter={e => {
-                  (e.currentTarget as HTMLElement).style.borderColor = 'rgba(254,127,45,0.35)'
-                  ;(e.currentTarget as HTMLElement).style.color = '#FE7F2D'
+                  (e.currentTarget as HTMLElement).style.borderColor = 'hsl(var(--primary) / 0.35)'
+                  ;(e.currentTarget as HTMLElement).style.color = 'hsl(var(--primary))'
                 }}
                 onMouseLeave={e => {
                   (e.currentTarget as HTMLElement).style.borderColor = 'rgba(255,255,255,0.1)'
                   ;(e.currentTarget as HTMLElement).style.color = '#EAECF0'
                 }}
               >
-                <Download size={16} style={{ color: '#FE7F2D' }} /> Download Resume
+                <Download size={16} style={{ color: 'hsl(var(--primary))' }} /> Download Resume
               </a>
             </motion.div>
 
@@ -184,37 +184,37 @@ export function HeroSection({ profile }: HeroSectionProps) {
             >
               {/* Orange glow behind card */}
               <div className="absolute inset-6 rounded-3xl blur-2xl"
-                style={{ background: 'radial-gradient(circle, rgba(254,127,45,0.18) 0%, rgba(35,61,77,0.12) 100%)' }} />
+                style={{ background: 'radial-gradient(circle, hsl(var(--primary) / 0.18) 0%, hsl(var(--secondary) / 0.12) 100%)' }} />
 
               {/* Card */}
               <div className="relative rounded-3xl overflow-hidden shadow-2xl"
                 style={{
-                  border: '1px solid rgba(254,127,45,0.18)',
+                  border: '1px solid hsl(var(--primary) / 0.18)',
                   background: 'linear-gradient(160deg, #0f0f0f 0%, #080808 60%, #000 100%)',
                 }}
               >
                 {/* ── Decorative corner brackets ── */}
                 {/* Top-left */}
                 <div className="absolute top-3 left-3 w-6 h-6 z-20 pointer-events-none"
-                  style={{ borderTop: '2px solid #FE7F2D', borderLeft: '2px solid #FE7F2D', borderRadius: '4px 0 0 0' }} />
+                  style={{ borderTop: '2px solid hsl(var(--primary))', borderLeft: '2px solid hsl(var(--primary))', borderRadius: '4px 0 0 0' }} />
                 {/* Top-right */}
                 <div className="absolute top-3 right-3 w-6 h-6 z-20 pointer-events-none"
-                  style={{ borderTop: '2px solid #FE7F2D', borderRight: '2px solid #FE7F2D', borderRadius: '0 4px 0 0' }} />
+                  style={{ borderTop: '2px solid hsl(var(--primary))', borderRight: '2px solid hsl(var(--primary))', borderRadius: '0 4px 0 0' }} />
                 {/* Bottom-left */}
                 <div className="absolute bottom-3 left-3 w-6 h-6 z-20 pointer-events-none"
-                  style={{ borderBottom: '2px solid rgba(254,127,45,0.5)', borderLeft: '2px solid rgba(254,127,45,0.5)', borderRadius: '0 0 0 4px' }} />
+                  style={{ borderBottom: '2px solid hsl(var(--primary) / 0.5)', borderLeft: '2px solid hsl(var(--primary) / 0.5)', borderRadius: '0 0 0 4px' }} />
                 {/* Bottom-right */}
                 <div className="absolute bottom-3 right-3 w-6 h-6 z-20 pointer-events-none"
-                  style={{ borderBottom: '2px solid rgba(254,127,45,0.5)', borderRight: '2px solid rgba(254,127,45,0.5)', borderRadius: '0 0 4px 0' }} />
+                  style={{ borderBottom: '2px solid hsl(var(--primary) / 0.5)', borderRight: '2px solid hsl(var(--primary) / 0.5)', borderRadius: '0 0 4px 0' }} />
 
                 {/* Left accent bar — teal */}
                 <div className="absolute left-0 top-12 bottom-12 w-[3px] z-20 rounded-full"
-                  style={{ background: 'linear-gradient(to bottom, transparent, #233D4D, rgba(254,127,45,0.4), #233D4D, transparent)' }} />
+                  style={{ background: 'linear-gradient(to bottom, transparent, hsl(var(--secondary)), hsl(var(--primary) / 0.4), hsl(var(--secondary)), transparent)' }} />
 
                 {/* Animated scan-line */}
                 <motion.div
                   className="absolute left-0 right-0 h-[1px] z-20 pointer-events-none"
-                  style={{ background: 'linear-gradient(to right, transparent, rgba(254,127,45,0.6), transparent)' }}
+                  style={{ background: 'linear-gradient(to right, transparent, hsl(var(--primary) / 0.6), transparent)' }}
                   initial={{ top: '10%', opacity: 0 }}
                   animate={{ top: ['10%', '90%', '10%'], opacity: [0, 0.8, 0] }}
                   transition={{ duration: 4, repeat: Infinity, ease: 'linear', repeatDelay: 2 }}
@@ -241,7 +241,7 @@ export function HeroSection({ profile }: HeroSectionProps) {
                     />
                   ) : (
                     <div className="flex flex-col items-center justify-center h-full px-6 text-center">
-                      <User size={72} style={{ color: 'rgba(254,127,45,0.2)' }} className="mb-4" />
+                      <User size={72} style={{ color: 'hsl(var(--primary) / 0.2)' }} className="mb-4" />
                       <p className="text-sm" style={{ color: 'rgba(234,236,240,0.4)' }}>Upload your photo in Admin → Profile</p>
                     </div>
                   )}
@@ -253,7 +253,7 @@ export function HeroSection({ profile }: HeroSectionProps) {
                     <div className="flex items-end justify-between">
                       <div>
                         <p className="font-bold text-white text-sm leading-tight">{name}</p>
-                        <p className="text-[11px] mt-0.5" style={{ color: '#FE7F2D' }}>{title}</p>
+                        <p className="text-[11px] mt-0.5" style={{ color: 'hsl(var(--primary))' }}>{title}</p>
                       </div>
                       <span className="flex items-center gap-1.5 text-[10px] font-bold text-emerald-400 uppercase tracking-wider px-2.5 py-1 rounded-full"
                         style={{ background: 'rgba(16,185,129,0.1)', border: '1px solid rgba(16,185,129,0.25)' }}>
@@ -274,11 +274,11 @@ export function HeroSection({ profile }: HeroSectionProps) {
                 style={{
                   background: 'rgba(8,8,8,0.97)',
                   backdropFilter: 'blur(12px)',
-                  border: '1px solid rgba(254,127,45,0.3)',
-                  boxShadow: '0 4px 12px rgba(254,127,45,0.15)',
+                  border: '1px solid hsl(var(--primary) / 0.3)',
+                  boxShadow: '0 4px 12px hsl(var(--primary) / 0.15)',
                 }}
               >
-                <Code2 size={13} style={{ color: '#FE7F2D' }} />
+                <Code2 size={13} style={{ color: 'hsl(var(--primary))' }} />
                 Flutter Specialist
               </motion.div>
 
@@ -291,7 +291,7 @@ export function HeroSection({ profile }: HeroSectionProps) {
                 style={{
                   background: 'rgba(8,8,8,0.97)',
                   backdropFilter: 'blur(12px)',
-                  border: '1px solid rgba(35,61,77,0.6)',
+                  border: '1px solid hsl(var(--secondary) / 0.6)',
                 }}
               >
                 <CheckCircle2 size={13} className="text-emerald-400" />
@@ -307,10 +307,10 @@ export function HeroSection({ profile }: HeroSectionProps) {
                 style={{
                   background: 'rgba(8,8,8,0.95)',
                   backdropFilter: 'blur(12px)',
-                  border: '1px solid rgba(254,127,45,0.2)',
+                  border: '1px solid hsl(var(--primary) / 0.2)',
                 }}
               >
-                <span className="text-2xl font-black" style={{ color: '#FE7F2D' }}>1</span>
+                <span className="text-2xl font-black" style={{ color: 'hsl(var(--primary))' }}>1</span>
                 <span className="text-[9px] text-slate-400 uppercase tracking-wider font-semibold leading-tight text-center">Year<br/>Exp.</span>
               </motion.div>
             </motion.div>

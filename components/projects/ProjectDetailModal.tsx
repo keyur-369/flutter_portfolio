@@ -52,7 +52,7 @@ export function ProjectDetailModal({ project, onClose }: ProjectDetailModalProps
             {project.image ? (
               <img src={project.image} alt={project.title} className="w-full h-full object-cover" />
             ) : (
-              <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-indigo-900/60 to-slate-900">
+              <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-primary/60 to-slate-900">
                 <Code2 size={56} className="text-white/30" />
               </div>
             )}
@@ -85,7 +85,7 @@ export function ProjectDetailModal({ project, onClose }: ProjectDetailModalProps
             {/* Tech Stack */}
             <div>
               <h3 className="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-3 flex items-center gap-1.5">
-                <Sparkles size={12} className="text-indigo-400" />
+                <Sparkles size={12} className="text-primary/70" />
                 Technologies & Architecture
               </h3>
               <div className="flex flex-wrap gap-2">

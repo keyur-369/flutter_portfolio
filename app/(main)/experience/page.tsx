@@ -16,7 +16,7 @@ export default async function ExperiencePage() {
     <section className="section py-24">
       <div className="container-custom">
         <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full glass border border-violet-500/30 text-xs font-semibold text-violet-300 uppercase tracking-widest mb-4">
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full glass border border-secondary/30 text-xs font-semibold text-secondary/90 uppercase tracking-widest mb-4">
             <Briefcase size={10} />
             Career
           </div>

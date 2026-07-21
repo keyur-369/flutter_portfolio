@@ -20,7 +20,7 @@ export function AboutHero({ profile }: AboutHeroProps) {
           {/* Left */}
           <div>
             <FadeIn delay={0.1}>
-              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full glass border border-blue-500/30 text-xs font-semibold text-blue-300 uppercase tracking-widest mb-6">
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full glass border border-primary/30 text-xs font-semibold text-primary/90 uppercase tracking-widest mb-6">
                 <User size={10} />
                 About Me
               </div>
@@ -40,24 +40,24 @@ export function AboutHero({ profile }: AboutHeroProps) {
               <div className="space-y-3">
                 {profile?.location && (
                   <div className="flex items-center gap-3 text-slate-300">
-                    <div className="w-8 h-8 rounded-lg bg-indigo-500/20 flex items-center justify-center flex-shrink-0">
-                      <MapPin size={14} className="text-indigo-400" />
+                    <div className="w-8 h-8 rounded-lg bg-primary/20 flex items-center justify-center flex-shrink-0">
+                      <MapPin size={14} className="text-primary/70" />
                     </div>
                     <span className="text-sm">{profile.location}</span>
                   </div>
                 )}
                 {profile?.email && (
                   <div className="flex items-center gap-3 text-slate-300">
-                    <div className="w-8 h-8 rounded-lg bg-indigo-500/20 flex items-center justify-center flex-shrink-0">
-                      <Mail size={14} className="text-indigo-400" />
+                    <div className="w-8 h-8 rounded-lg bg-primary/20 flex items-center justify-center flex-shrink-0">
+                      <Mail size={14} className="text-primary/70" />
                     </div>
                     <span className="text-sm">{profile.email}</span>
                   </div>
                 )}
                 {profile?.phone && (
                   <div className="flex items-center gap-3 text-slate-300">
-                    <div className="w-8 h-8 rounded-lg bg-indigo-500/20 flex items-center justify-center flex-shrink-0">
-                      <Phone size={14} className="text-indigo-400" />
+                    <div className="w-8 h-8 rounded-lg bg-primary/20 flex items-center justify-center flex-shrink-0">
+                      <Phone size={14} className="text-primary/70" />
                     </div>
                     <span className="text-sm">{profile.phone}</span>
                   </div>
@@ -69,7 +69,7 @@ export function AboutHero({ profile }: AboutHeroProps) {
           {/* Right — Profile Card */}
           <FadeIn delay={0.3} direction="left">
             <div className="relative">
-              <div className="absolute inset-0 bg-gradient-to-br from-blue-500/20 to-violet-500/20 rounded-3xl blur-3xl" />
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-secondary/20 rounded-3xl blur-3xl" />
               <div className="relative glass-card p-8 rounded-3xl">
                 <div className="flex items-center gap-4 mb-8">
                   <div className="relative">
@@ -80,7 +80,7 @@ export function AboutHero({ profile }: AboutHeroProps) {
                         className="w-20 h-20 rounded-2xl object-cover"
                       />
                     ) : (
-                      <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-blue-500 to-violet-600 flex items-center justify-center text-3xl font-bold text-white font-display">
+                      <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-3xl font-bold text-white font-display">
                         {name.charAt(0)}
                       </div>
                     )}
@@ -90,7 +90,7 @@ export function AboutHero({ profile }: AboutHeroProps) {
                     <h3 className="font-display font-bold text-xl text-white">
                       {name}
                     </h3>
-                    <p className="text-indigo-400 text-sm font-medium">
+                    <p className="text-primary/70 text-sm font-medium">
                       {title}
                     </p>
                   </div>
