@@ -4,12 +4,12 @@ import { triggerRevalidate } from '@/lib/utils'
 
 export const settingsService = {
   async get(): Promise<WebsiteSettings | null> {
-    const { data, error } = await supabase.from('website_settings').select('*').order('created_at', { ascending: false }).limit(1).maybeSingle()
+    const { data, error } = await supabase.from('website_settings').select('*').order('created_at', { ascending: false }).limit(1)
     if (error) {
       console.error('settingsService.get error:', error)
       return null
     }
-    return data
+    return data?.[0] ?? null
   },
 
   async update(id: string, updates: Partial<WebsiteSettings>): Promise<WebsiteSettings | null> {
