@@ -1,3 +1,4 @@
+/// <reference types="@react-three/fiber" />
 'use client'
 
 import { useRef } from 'react'
