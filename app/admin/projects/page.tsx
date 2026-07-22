@@ -124,7 +124,7 @@ function ProjectForm({
           setValue('image', storageUrl)
           setPreviewUrl(storageUrl)
         }
-      }).catch(() => {})
+      }).catch(() => { })
     }
     reader.onerror = () => {
       setUploading(false)

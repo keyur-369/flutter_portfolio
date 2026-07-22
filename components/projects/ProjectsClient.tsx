@@ -19,16 +19,16 @@ export function ProjectsClient({ initialProjects }: ProjectsClientProps) {
   const [search, setSearch] = useState('')
   const [filter, setFilter] = useState('All')
 
-const statuses = [
-  'All',
-  ...Array.from(
-    new Set(
-      initialProjects
-        .map((p) => p.status)
-        .filter((status): status is string => Boolean(status))
-    )
-  ),
-]
+  const statuses = [
+    'All',
+    ...Array.from(
+      new Set(
+        initialProjects
+          .map((p) => p.status)
+          .filter((status): status is string => Boolean(status))
+      )
+    ),
+  ]
   const filtered = useMemo(() => {
     return initialProjects.filter((p) => {
       const matchesSearch =
