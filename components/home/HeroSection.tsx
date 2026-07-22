@@ -19,6 +19,7 @@ import {
   Sparkles,
 } from 'lucide-react'
 import type { Profile } from '@/types/database'
+import { TypewriterText, OneShotTypewriter } from '@/components/ui/TypewriterText'
 
 // ── HIGH PRECISION BRAND TECH ICONS ──
 function FlutterIcon({ className = 'w-6 h-6' }: { className?: string }) {
@@ -50,10 +51,10 @@ function FirebaseIcon({ className = 'w-6 h-6' }: { className?: string }) {
 
 function AwsIcon({ className = 'w-6 h-6' }: { className?: string }) {
   return (
-    <svg viewBox="0 0 24 24" className={`${className} fill-current text-[#FF9900]`}>
-      <path d="M6.763 10.035c0 .363.072.639.217.828.143.189.351.283.623.283.218 0 .42-.058.608-.173.188-.116.355-.283.501-.502l.063-.092v.692h1.492v-4.46H8.775v1.942a1.862 1.862 0 00-.501-.409 1.458 1.458 0 00-.671-.157c-.557 0-.994.195-1.311.585-.317.391-.476.942-.476 1.654zm1.537-.092c0-.363.076-.641.229-.834.153-.193.364-.289.634-.289.284 0 .502.1.653.3v1.64c-.157.2-.379.301-.667.301-.264 0-.471-.096-.622-.289-.15-.193-.227-.471-.227-.829z" />
-      <path d="M12.448 11.074h1.537l1.096-3.834h.044l1.109 3.834h1.472l1.637-5.006h-1.505l-.94 3.639h-.044l-1.12-3.639h-1.283l-1.12 3.639h-.044l-.94-3.639h-1.472z" />
-      <path d="M18.89 11.55c-2.47 1.822-6.07 2.766-9.155 2.766-4.32 0-8.196-1.615-11.11-4.316l-.888 1.144c3.272 3.037 7.625 4.85 12.476 4.85 3.46 0 7.502-1.06 10.27-3.107l-1.593-1.337z" />
+    <svg viewBox="0 0 24 24" className={`${className} fill-[#FF9900]`}>
+      <path d="M18.75 14.15c-2.45 1.75-6 2.65-9.05 2.65-4.25 0-8.05-1.55-10.9-4.15l-.85 1.1c3.2 2.9 7.45 4.65 12.2 4.65 3.4 0 7.35-1 10.05-2.95l-1.45-1.3z" />
+      <path d="M19.75 12.85c.35-.45.95-2.15 1.15-2.75.2-.6.05-.85-.45-.65-.5.2-1.9.8-2.65 1.15-.75.35-.45 1 .05.95.5-.05 1.3-.15 1.9-.15l-.05 1.45z" />
+      <path d="M7.15 10.3c0 .35.05.6.2.8.15.2.35.3.6.3.2 0 .4-.05.6-.15.2-.1.35-.25.5-.45v.65h1.45V7.1H9.05v1.9c-.15-.2-.35-.35-.5-.45-.2-.1-.4-.15-.65-.15-.55 0-1 .2-1.3.6-.3.4-.45.9-.45 1.6v-.3zm1.5-.1c0-.35.05-.6.2-.8.15-.2.35-.3.6-.3.3 0 .5.1.65.3v1.6c-.15.2-.35.3-.65.3-.25 0-.45-.1-.6-.3-.15-.2-.2-.45-.2-.8v.3zm3.75 1.25h1.5l1.1-3.8h.05l1.1 3.8h1.45l1.6-5H18.2l-.95 3.6h-.05l-1.1-3.6h-1.3l-1.1 3.6h-.05l-.95-3.6h-1.45l1.6 5zm9.35-3.55c-.75-.25-1.55-.4-2.35-.45-.3 0-.6.05-.85.15-.25.1-.45.25-.6.45-.15.2-.25.45-.25.75 0 .3.05.55.2.75.15.2.35.35.65.45.3.1.65.2 1.05.3.4.1.75.25 1.05.4.3.15.5.35.65.55.15.2.2.5.2.85 0 .5-.2.95-.6 1.3-.4.35-1 .55-1.75.55-.5 0-1.05-.1-1.6-.25s-1.05-.4-1.55-.65l.55-1.2c.45.25.9.45 1.35.6.45.15.9.2 1.3.2.35 0 .65-.05.85-.2.2-.15.3-.35.3-.6 0-.25-.05-.45-.2-.6-.15-.15-.35-.25-.65-.35-.3-.1-.65-.2-1.05-.3-.4-.1-.75-.25-1.05-.4-.3-.15-.5-.35-.65-.55-.15-.2-.25-.5-.25-.85 0-.5.2-.95.6-1.3.4-.35.95-.55 1.7-.55.5 0 1 .05 1.5.2s.95.35 1.4.55l-.5 1.2z" />
     </svg>
   )
 }
@@ -92,17 +93,24 @@ function WhatsAppIcon({ className = 'w-4 h-4' }: { className?: string }) {
 
 interface HeroSectionProps {
   profile: Profile | null
+  statsCounts?: {
+    projectsCount?: number
+    skillsCount?: number
+    certsCount?: number
+    experienceCount?: number
+  }
 }
 
-export function HeroSection({ profile }: HeroSectionProps) {
+export function HeroSection({ profile, statsCounts }: HeroSectionProps) {
   const name = profile?.full_name ?? 'Keyur Mistry'
   const firstName = name.split(' ')[0] ?? 'Keyur'
   const lastName = name.split(' ')[1] ?? 'Mistry'
   const title = profile?.title || 'Flutter Developer'
 
-  const about =
-    profile?.about ??
-    'I build beautiful, performant and scalable mobile apps with Flutter & Firebase that users love.'
+  const defaultAbout =
+    'I build cross-platform mobile apps with Flutter, Firebase and Supabase — from published Play Store apps to full-stack platforms with clean architecture and interfaces people enjoy using.'
+
+  const about = profile?.about && profile.about.trim().length > 0 ? profile.about : defaultAbout
 
   // Parallax Spring Motion
   const rawMouseX = useMotionValue(0)
@@ -120,11 +128,32 @@ export function HeroSection({ profile }: HeroSectionProps) {
     rawMouseY.set(y)
   }
 
+  // Dynamic Statistics from Database
   const stats = [
-    { label: 'Years Experience', value: '1+', icon: Briefcase, color: 'text-orange-400' },
-    { label: 'Projects Completed', value: '10+', icon: FolderGit2, color: 'text-amber-400' },
-    { label: 'Technologies Mastered', value: '5+', icon: Cpu, color: 'text-emerald-400' },
-    { label: 'Client Satisfaction', value: '100%', icon: Award, color: 'text-cyan-400' },
+    {
+      label: 'Years Experience',
+      value: statsCounts?.experienceCount && statsCounts.experienceCount > 0 ? `${statsCounts.experienceCount}+` : '1+',
+      icon: Briefcase,
+      color: 'text-orange-400',
+    },
+    {
+      label: 'Projects Completed',
+      value: statsCounts?.projectsCount && statsCounts.projectsCount > 0 ? `${statsCounts.projectsCount}+` : '10+',
+      icon: FolderGit2,
+      color: 'text-amber-400',
+    },
+    {
+      label: 'Technologies Mastered',
+      value: statsCounts?.skillsCount && statsCounts.skillsCount > 0 ? `${statsCounts.skillsCount}+` : '5+',
+      icon: Cpu,
+      color: 'text-emerald-400',
+    },
+    {
+      label: 'Client Satisfaction',
+      value: '100%',
+      icon: Award,
+      color: 'text-cyan-400',
+    },
   ]
 
   const techLogos = [
@@ -140,9 +169,9 @@ export function HeroSection({ profile }: HeroSectionProps) {
   return (
     <section
       onMouseMove={handleMouseMove}
-      className="relative min-h-screen flex flex-col justify-between overflow-hidden text-white pt-24 pb-8"
+      className="relative min-h-screen flex flex-col justify-start overflow-x-hidden text-white pt-0 pb-4"
     >
-      {/* Dynamic Keyframes Injection */}
+      {/* Dynamic 3D Spatial Keyframes Injection */}
       <style jsx global>{`
         @keyframes orbitRotateCw {
           0% { transform: rotate(0deg); }
@@ -152,13 +181,13 @@ export function HeroSection({ profile }: HeroSectionProps) {
           0% { transform: rotate(0deg); }
           100% { transform: rotate(-360deg); }
         }
-        @keyframes counterRotateCw {
-          0% { transform: rotate(0deg); }
-          100% { transform: rotate(-360deg); }
+        @keyframes counterTransform3dCw {
+          0% { transform: rotate(0deg) rotateY(22deg) rotateX(-72deg); }
+          100% { transform: rotate(-360deg) rotateY(22deg) rotateX(-72deg); }
         }
-        @keyframes counterRotateCcw {
-          0% { transform: rotate(0deg); }
-          100% { transform: rotate(360deg); }
+        @keyframes counterTransform3dCcw {
+          0% { transform: rotate(0deg) rotateY(-22deg) rotateX(-66deg); }
+          100% { transform: rotate(360deg) rotateY(-22deg) rotateX(-66deg); }
         }
         @keyframes cardScanline {
           0% { top: 0%; opacity: 0; }
@@ -222,22 +251,22 @@ export function HeroSection({ profile }: HeroSectionProps) {
         ))}
       </div>
 
-      {/* ── MAIN CONTENT CONTAINER ── */}
-      <div className="container-custom relative z-10 my-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-6 items-center">
+      {/* ── MAIN CONTENT CONTAINER (NO SPACE NO PADDING AT TOP) ── */}
+      <div className="w-full max-w-[1600px] mx-auto px-4 sm:px-8 lg:px-12 relative z-10 pt-0 sm:pt-1 lg:pt-1">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center">
 
-          {/* ── LEFT COLUMN (TEXT & STATS) ── */}
-          <div className="lg:col-span-7 flex flex-col justify-center gap-6 lg:gap-7 text-center lg:text-left order-2 lg:order-1">
+          {/* ── LEFT COLUMN (TEXT & STATS - FULL LEFT ALIGNED) ── */}
+          <div className="lg:col-span-6 flex flex-col justify-center items-start gap-4 sm:gap-5 text-left order-2 lg:order-1">
 
             {/* Availability Badge */}
             <motion.div
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
-              className="flex justify-center lg:justify-start"
+              className="flex justify-start"
             >
               <div
-                className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full text-xs font-semibold tracking-wide backdrop-blur-xl transition-all duration-300 hover:scale-105"
+                className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full text-xs font-semibold tracking-wide backdrop-blur-xl transition-all duration-300 hover:scale-105"
                 style={{
                   background: 'rgba(16, 185, 129, 0.06)',
                   border: '1px solid rgba(16, 185, 129, 0.25)',
@@ -257,19 +286,19 @@ export function HeroSection({ profile }: HeroSectionProps) {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1 }}
-              className="select-none"
+              className="select-none text-left"
             >
-              <span className="block text-lg sm:text-xl font-medium tracking-wide text-slate-400 mb-1">
+              <span className="block text-base sm:text-lg font-medium tracking-wide text-slate-400 mb-0.5">
                 Hi, I'm
               </span>
-              <h1 className="font-display font-black uppercase tracking-tight leading-[0.88]">
-                <span className="block text-white" style={{ fontSize: 'clamp(3.5rem, 7.5vw, 6.5rem)' }}>
+              <h1 className="font-display font-black uppercase tracking-tight leading-[0.88] text-left">
+                <span className="block text-white" style={{ fontSize: 'clamp(3rem, 6.5vw, 5.8rem)' }}>
                   {firstName}
                 </span>
                 <span
                   className="block drop-shadow-[0_10px_35px_rgba(254,127,45,0.25)]"
                   style={{
-                    fontSize: 'clamp(3.5rem, 7.5vw, 6.5rem)',
+                    fontSize: 'clamp(3rem, 6.5vw, 5.8rem)',
                     background: 'linear-gradient(135deg, hsl(var(--primary)) 0%, #FF9E59 50%, hsl(var(--primary)) 100%)',
                     WebkitBackgroundClip: 'text',
                     WebkitTextFillColor: 'transparent',
@@ -280,25 +309,39 @@ export function HeroSection({ profile }: HeroSectionProps) {
                 </span>
               </h1>
 
-              {/* Handwritten role accent text */}
-              <motion.p
+              {/* Handwritten role accent text — Cyan / Teal with Typing Animation */}
+              <motion.div
                 initial={{ opacity: 0, x: -15 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.5, delay: 0.3 }}
-                className="font-cursive text-4xl sm:text-5xl lg:text-6xl font-bold mt-2 ml-1 text-orange-400/90 drop-shadow-[0_4px_16px_rgba(254,127,45,0.35)]"
+                className="font-cursive text-3xl sm:text-4xl lg:text-5xl font-bold mt-1.5 ml-1 text-[#22D3EE] drop-shadow-[0_4px_20px_rgba(34,211,238,0.5)] text-left min-h-[50px] sm:min-h-[60px]"
               >
-                {title}
-              </motion.p>
+                <TypewriterText
+                  roles={[
+                    title || 'Flutter Developer',
+                    'Cross-Platform Engineer',
+                    'Firebase & Supabase Expert',
+                    'Full Stack App Developer',
+                    'Mobile UI Craftsman',
+                  ]}
+                  className="inline-block"
+                  cursorClassName="animate-pulse text-[#22D3EE] ml-1 font-sans"
+                />
+              </motion.div>
             </motion.div>
 
-            {/* Short Bio */}
+            {/* Short Bio — One-Time Typewriter Typing Animation on Page Load / Reload / Navigation */}
             <motion.p
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.4 }}
-              className="text-base sm:text-lg leading-relaxed max-w-xl mx-auto lg:mx-0 text-slate-300/80 font-normal"
+              className="text-sm sm:text-base leading-relaxed max-w-xl text-justify text-slate-400 font-normal min-h-[72px]"
             >
-              {about}
+              <OneShotTypewriter
+                text={about}
+                boldTarget="cross-platform mobile apps"
+                speed={38}
+              />
             </motion.p>
 
             {/* CTA Buttons */}
@@ -306,11 +349,11 @@ export function HeroSection({ profile }: HeroSectionProps) {
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.5 }}
-              className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4"
+              className="flex flex-col sm:flex-row items-center justify-start gap-3.5 w-full sm:w-auto"
             >
               <Link
                 href="/contact"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-xl font-bold text-sm text-black transition-all duration-300 hover:scale-105 active:scale-95 group cursor-pointer"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-7 py-3.5 rounded-xl font-bold text-sm text-black transition-all duration-300 hover:scale-105 active:scale-95 group cursor-pointer"
                 style={{
                   background: 'linear-gradient(135deg, hsl(var(--primary)) 0%, #FF9E59 100%)',
                   boxShadow: '0 8px 30px rgba(254, 127, 45, 0.4)',
@@ -324,7 +367,7 @@ export function HeroSection({ profile }: HeroSectionProps) {
                 href={profile?.resume_url ?? '/resume'}
                 target={profile?.resume_url ? '_blank' : '_self'}
                 rel="noopener noreferrer"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-xl font-semibold text-sm text-slate-200 transition-all duration-300 glass border border-white/10 hover:border-orange-500/40 hover:text-orange-400 hover:scale-105 active:scale-95 cursor-pointer backdrop-blur-xl"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-7 py-3.5 rounded-xl font-semibold text-sm text-slate-200 transition-all duration-300 glass border border-white/10 hover:border-orange-500/40 hover:text-orange-400 hover:scale-105 active:scale-95 cursor-pointer backdrop-blur-xl"
               >
                 <Download size={18} className="text-orange-400" />
                 <span>Download Resume</span>
@@ -336,7 +379,7 @@ export function HeroSection({ profile }: HeroSectionProps) {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5, delay: 0.6 }}
-              className="flex items-center justify-center lg:justify-start gap-3 pt-1"
+              className="flex items-center justify-start gap-3 pt-0.5"
             >
               {[
                 { icon: Github, href: profile?.github ?? 'https://github.com', label: 'GitHub' },
@@ -350,11 +393,11 @@ export function HeroSection({ profile }: HeroSectionProps) {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={label}
-                  className="flex items-center justify-center w-11 h-11 rounded-xl glass border border-white/10 text-slate-400 hover:text-orange-400 hover:border-orange-500/40 transition-all duration-300 shadow-lg backdrop-blur-xl"
+                  className="flex items-center justify-center w-10 h-10 rounded-xl glass border border-white/10 text-slate-400 hover:text-orange-400 hover:border-orange-500/40 transition-all duration-300 shadow-lg backdrop-blur-xl"
                   whileHover={{ scale: 1.15, rotate: 6 }}
                   whileTap={{ scale: 0.9 }}
                 >
-                  {isCustomSvg ? <Icon /> : <Icon size={18} />}
+                  {isCustomSvg ? <Icon /> : <Icon size={17} />}
                 </motion.a>
               ))}
             </motion.div>
@@ -364,20 +407,20 @@ export function HeroSection({ profile }: HeroSectionProps) {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.7 }}
-              className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-4 border-t border-white/10"
+              className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 pt-3 border-t border-white/10 w-full"
             >
               {stats.map(({ label, value, icon: StatIcon, color }) => (
                 <div
                   key={label}
-                  className="group flex flex-col p-3.5 rounded-2xl glass border border-white/5 hover:border-orange-500/30 hover:bg-white/[0.04] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_10px_25px_rgba(0,0,0,0.5)]"
+                  className="group flex flex-col p-3 rounded-2xl glass border border-white/5 hover:border-orange-500/30 hover:bg-white/[0.04] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_10px_25px_rgba(0,0,0,0.5)]"
                 >
-                  <div className="flex items-center gap-2 mb-1">
-                    <StatIcon size={16} className={color} />
-                    <span className="text-xl sm:text-2xl font-extrabold tracking-tight text-white group-hover:text-orange-400 transition-colors">
+                  <div className="flex items-center gap-2 mb-0.5">
+                    <StatIcon size={15} className={color} />
+                    <span className="text-lg sm:text-xl font-extrabold tracking-tight text-white group-hover:text-orange-400 transition-colors">
                       {value}
                     </span>
                   </div>
-                  <span className="text-[11px] text-slate-400 font-medium leading-tight text-left">
+                  <span className="text-[10px] text-slate-400 font-medium leading-tight text-left">
                     {label}
                   </span>
                 </div>
@@ -386,43 +429,64 @@ export function HeroSection({ profile }: HeroSectionProps) {
 
           </div>
 
-          {/* ── RIGHT COLUMN (FUTURISTIC ORBITING PHOTO HERO) ── */}
-          <div className="lg:col-span-5 flex justify-center items-center order-1 lg:order-2 relative py-8">
+          {/* ── RIGHT COLUMN (TRUE 3D SPATIAL ORBITING HERO WITH TRUSTED BY TECHNOLOGIES DIRECTLY BELOW PHOTO) ── */}
+          <div className="lg:col-span-6 flex flex-col justify-center items-center lg:items-end order-1 lg:order-2 relative py-2 overflow-visible">
             <motion.div
-              style={{ x: parallaxX, y: parallaxY }}
-              className="relative w-full max-w-[380px] sm:max-w-[420px] lg:max-w-[450px] flex justify-center items-center"
+              style={{
+                x: parallaxX,
+                y: parallaxY,
+                perspective: '1200px',
+                transformStyle: 'preserve-3d',
+              }}
+              className="relative w-full max-w-[340px] sm:max-w-[380px] lg:max-w-[420px] flex justify-center lg:justify-end items-center overflow-visible"
             >
-              {/* ── ORBIT RINGS & FLOATING TECH ICONS ── */}
-              <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-10">
+              {/* ── 3D ORBIT RINGS & FLOATING TECH ICONS ── */}
+              <div
+                className="absolute inset-0 flex items-center justify-center pointer-events-none"
+                style={{ transformStyle: 'preserve-3d' }}
+              >
 
-                {/* Outer Orbit Ring 1 (Clockwise Rotation) */}
+                {/* Outer 3D Orbit Ring 1 (Tilted Clockwise - Icons Orbit Across Front) */}
                 <div
-                  className="absolute rounded-full border border-orange-500/25 shadow-[0_0_30px_rgba(254,127,45,0.15)] pointer-events-none"
+                  className="absolute rounded-full border-2 border-orange-500/30 shadow-[0_0_35px_rgba(254,127,45,0.2)] pointer-events-none"
                   style={{
-                    width: 'clamp(340px, 85vw, 490px)',
-                    height: 'clamp(340px, 85vw, 490px)',
+                    width: 'clamp(360px, 75vw, 490px)',
+                    height: 'clamp(360px, 75vw, 490px)',
+                    transform: 'rotateX(72deg) rotateY(-22deg)',
+                    transformStyle: 'preserve-3d',
                   }}
                 >
                   {/* Orbiting Rotating Container */}
                   <div
                     className="absolute inset-0 rounded-full"
-                    style={{ animation: 'orbitRotateCw 26s linear infinite' }}
+                    style={{
+                      animation: 'orbitRotateCw 26s linear infinite',
+                      transformStyle: 'preserve-3d',
+                    }}
                   >
                     {/* Glowing Particle on Ring 1 */}
-                    <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3 h-3 rounded-full bg-orange-400 shadow-[0_0_15px_#FE7F2D] animate-pulse" />
+                    <div
+                      className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3.5 h-3.5 rounded-full bg-orange-400 shadow-[0_0_20px_#FE7F2D] animate-pulse"
+                      style={{ transformStyle: 'preserve-3d' }}
+                    />
 
-                    {/* Orbit Icons (Counter-rotated inside so they STAY UPRIGHT) */}
+                    {/* Orbit Icons (Counter-rotated in 3D so they STAY 100% UPRIGHT & FRONT-FACING) */}
                     {[
                       { Icon: FlutterIcon, label: 'Flutter', pos: 'top-0 left-1/2 -translate-x-1/2 -translate-y-1/2' },
-                      { Icon: ReactIcon, label: 'React', pos: 'top-1/2 right-0 translate-x-1/2 -translate-y-1/2' },
+                      { Icon: ReactIcon, label: 'React', pos: 'top-1/2 right-0 translate-x-1/3 -translate-y-1/2' },
                       { Icon: AwsIcon, label: 'AWS', pos: 'bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2' },
-                      { Icon: GitIcon, label: 'Git', pos: 'top-1/2 left-0 -translate-x-1/2 -translate-y-1/2' },
+                      { Icon: GitIcon, label: 'Git', pos: 'top-1/2 left-0 -translate-x-1/3 -translate-y-1/2' },
                     ].map(({ Icon, label, pos }) => (
-                      <div key={label} className={`absolute ${pos} pointer-events-auto`}>
-                        <div style={{ animation: 'counterRotateCw 26s linear infinite' }}>
-                          <div className="group relative flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-black/90 border border-white/15 backdrop-blur-2xl shadow-2xl hover:border-orange-500/70 hover:scale-115 transition-all duration-300">
-                            <div className="absolute inset-0 rounded-2xl bg-orange-500/10 opacity-0 group-hover:opacity-100 transition-opacity blur-sm" />
-                            <Icon className="w-6 h-6 sm:w-7 sm:h-7" />
+                      <div key={label} className={`absolute ${pos} pointer-events-auto`} style={{ transformStyle: 'preserve-3d' }}>
+                        <div style={{ animation: 'counterTransform3dCw 26s linear infinite', transformStyle: 'preserve-3d' }}>
+                          <div className="group relative flex items-center justify-center w-11 h-11 sm:w-13 sm:h-13 rounded-2xl bg-black/95 border-2 border-orange-500/50 backdrop-blur-2xl shadow-[0_10px_30px_rgba(0,0,0,0.8),0_0_20px_rgba(254,127,45,0.35)] hover:border-orange-400 hover:scale-125 transition-all duration-300 cursor-pointer">
+                            <div className="absolute inset-0 rounded-2xl bg-orange-500/15 opacity-0 group-hover:opacity-100 transition-opacity blur-md" />
+                            <Icon className="w-5 h-5 sm:w-6 sm:h-6" />
+
+                            {/* Tooltip Label */}
+                            <span className="absolute -bottom-8 left-1/2 -translate-x-1/2 px-2.5 py-0.5 rounded-lg bg-black/90 border border-orange-500/40 text-[10px] font-bold text-orange-300 opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap shadow-lg pointer-events-none">
+                              {label}
+                            </span>
                           </div>
                         </div>
                       </div>
@@ -430,32 +494,45 @@ export function HeroSection({ profile }: HeroSectionProps) {
                   </div>
                 </div>
 
-                {/* Inner Orbit Ring 2 (Counter-Clockwise Rotation) */}
+                {/* Inner 3D Orbit Ring 2 (Tilted Counter-Clockwise) */}
                 <div
-                  className="absolute rounded-full border border-orange-500/20 shadow-[0_0_20px_rgba(254,127,45,0.1)] pointer-events-none"
+                  className="absolute rounded-full border-2 border-orange-500/25 shadow-[0_0_25px_rgba(254,127,45,0.15)] pointer-events-none"
                   style={{
-                    width: 'clamp(260px, 65vw, 370px)',
-                    height: 'clamp(260px, 65vw, 370px)',
+                    width: 'clamp(280px, 60vw, 380px)',
+                    height: 'clamp(280px, 60vw, 380px)',
+                    transform: 'rotateX(66deg) rotateY(22deg)',
+                    transformStyle: 'preserve-3d',
                   }}
                 >
                   <div
                     className="absolute inset-0 rounded-full"
-                    style={{ animation: 'orbitRotateCcw 20s linear infinite' }}
+                    style={{
+                      animation: 'orbitRotateCcw 20s linear infinite',
+                      transformStyle: 'preserve-3d',
+                    }}
                   >
                     {/* Glowing Particle on Ring 2 */}
-                    <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 w-2.5 h-2.5 rounded-full bg-amber-400 shadow-[0_0_12px_#FFB703] animate-pulse" />
+                    <div
+                      className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 w-3 h-3 rounded-full bg-amber-400 shadow-[0_0_15px_#FFB703] animate-pulse"
+                      style={{ transformStyle: 'preserve-3d' }}
+                    />
 
-                    {/* Orbit Icons (Counter-rotated inside so they STAY UPRIGHT) */}
+                    {/* Orbit Icons (Counter-rotated in 3D so they STAY UPRIGHT) */}
                     {[
                       { Icon: FirebaseIcon, label: 'Firebase', pos: 'top-1/4 right-0 translate-x-1/3' },
                       { Icon: NodeIcon, label: 'Node.js', pos: 'bottom-1/4 left-0 -translate-x-1/3' },
                       { Icon: SupabaseIcon, label: 'Supabase', pos: 'top-3/4 right-1/4' },
                     ].map(({ Icon, label, pos }) => (
-                      <div key={label} className={`absolute ${pos} pointer-events-auto`}>
-                        <div style={{ animation: 'counterRotateCcw 20s linear infinite' }}>
-                          <div className="group relative flex items-center justify-center w-11 h-11 sm:w-13 sm:h-13 rounded-2xl bg-black/90 border border-white/15 backdrop-blur-2xl shadow-2xl hover:border-orange-500/70 hover:scale-115 transition-all duration-300">
-                            <div className="absolute inset-0 rounded-2xl bg-orange-500/10 opacity-0 group-hover:opacity-100 transition-opacity blur-sm" />
-                            <Icon className="w-5 h-5 sm:w-6 sm:h-6" />
+                      <div key={label} className={`absolute ${pos} pointer-events-auto`} style={{ transformStyle: 'preserve-3d' }}>
+                        <div style={{ animation: 'counterTransform3dCcw 20s linear infinite', transformStyle: 'preserve-3d' }}>
+                          <div className="group relative flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 rounded-2xl bg-black/95 border-2 border-orange-500/50 backdrop-blur-2xl shadow-[0_10px_30px_rgba(0,0,0,0.8),0_0_20px_rgba(254,127,45,0.35)] hover:border-orange-400 hover:scale-125 transition-all duration-300 cursor-pointer">
+                            <div className="absolute inset-0 rounded-2xl bg-orange-500/15 opacity-0 group-hover:opacity-100 transition-opacity blur-md" />
+                            <Icon className="w-4.5 h-4.5 sm:w-5.5 sm:h-5.5" />
+
+                            {/* Tooltip Label */}
+                            <span className="absolute -bottom-8 left-1/2 -translate-x-1/2 px-2.5 py-0.5 rounded-lg bg-black/90 border border-orange-500/40 text-[10px] font-bold text-orange-300 opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap shadow-lg pointer-events-none">
+                              {label}
+                            </span>
                           </div>
                         </div>
                       </div>
@@ -467,16 +544,20 @@ export function HeroSection({ profile }: HeroSectionProps) {
 
               {/* ── PHOTO CARD FRAME WITH VERTICAL FLOAT ── */}
               <motion.div
-                animate={{ y: [-8, 8, -8] }}
+                animate={{ y: [-6, 6, -6] }}
                 transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
-                className="relative z-20 w-full max-w-[320px] sm:max-w-[350px]"
+                className="relative w-full max-w-[320px] sm:max-w-[360px] lg:max-w-[390px]"
+                style={{
+                  transformStyle: 'preserve-3d',
+                  transform: 'translateZ(0px)',
+                }}
               >
                 {/* Intense neon orange glowing border box */}
                 <div
                   className="relative rounded-3xl overflow-hidden p-1 backdrop-blur-2xl"
                   style={{
                     background: 'linear-gradient(145deg, rgba(254, 127, 45, 0.9) 0%, rgba(255, 158, 89, 0.3) 50%, rgba(254, 127, 45, 0.8) 100%)',
-                    boxShadow: '0 0 50px rgba(254, 127, 45, 0.4), inset 0 0 15px rgba(254, 127, 45, 0.3)',
+                    boxShadow: '0 0 45px rgba(254, 127, 45, 0.35), inset 0 0 15px rgba(254, 127, 45, 0.25)',
                   }}
                 >
                   <div className="relative rounded-[22px] overflow-hidden bg-black/90">
@@ -497,7 +578,7 @@ export function HeroSection({ profile }: HeroSectionProps) {
                     />
 
                     {/* Portrait Photo Container */}
-                    <div className="relative w-full h-[400px] sm:h-[440px] overflow-hidden flex items-end justify-center">
+                    <div className="relative w-full h-[370px] sm:h-[400px] lg:h-[420px] overflow-hidden flex items-end justify-center">
                       {profile?.profile_image ? (
                         <img
                           src={profile.profile_image}
@@ -512,21 +593,21 @@ export function HeroSection({ profile }: HeroSectionProps) {
                       )}
 
                       {/* Bottom Gradient Fade */}
-                      <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-black via-black/80 to-transparent pointer-events-none z-10" />
+                      <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-black via-black/80 to-transparent pointer-events-none z-10" />
 
                       {/* ── FLOATING BADGE AT CARD BOTTOM ── */}
-                      <div className="absolute bottom-4 left-4 right-4 z-20">
-                        <div className="flex items-center justify-between p-3 rounded-2xl bg-black/80 border border-white/10 backdrop-blur-xl shadow-2xl">
+                      <div className="absolute bottom-3 left-3 right-3 z-20">
+                        <div className="flex items-center justify-between p-2.5 rounded-2xl bg-black/80 border border-white/10 backdrop-blur-xl shadow-2xl">
                           <div className="flex items-center gap-2.5">
-                            <div className="flex items-center justify-center w-8 h-8 rounded-xl bg-orange-500/20 border border-orange-500/40 text-orange-400">
-                              <Code2 size={16} />
+                            <div className="flex items-center justify-center w-7 h-7 rounded-xl bg-orange-500/20 border border-orange-500/40 text-orange-400">
+                              <Code2 size={15} />
                             </div>
                             <div>
                               <p className="font-bold text-xs text-white leading-tight">Flutter Specialist</p>
                               <p className="text-[10px] text-slate-400">Cross-Platform Expert</p>
                             </div>
                           </div>
-                          <span className="flex items-center justify-center w-6 h-6 rounded-full bg-emerald-500/10 border border-emerald-500/30">
+                          <span className="flex items-center justify-center w-5 h-5 rounded-full bg-emerald-500/10 border border-emerald-500/30">
                             <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
                           </span>
                         </div>
@@ -541,9 +622,9 @@ export function HeroSection({ profile }: HeroSectionProps) {
                   initial={{ opacity: 0, x: 20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.8 }}
-                  className="absolute top-1/2 -right-10 -translate-y-1/2 hidden xl:flex flex-col items-center justify-center px-4 py-3 rounded-2xl bg-black/90 border border-orange-500/30 backdrop-blur-2xl shadow-2xl z-30"
+                  className="absolute top-1/2 -right-8 -translate-y-1/2 hidden xl:flex flex-col items-center justify-center px-3.5 py-2.5 rounded-2xl bg-black/90 border border-orange-500/30 backdrop-blur-2xl shadow-2xl z-30"
                 >
-                  <span className="text-2xl font-black text-orange-400">1+</span>
+                  <span className="text-xl font-black text-orange-400">1+</span>
                   <span className="text-[9px] font-bold text-slate-300 uppercase tracking-widest leading-tight text-center">
                     Year<br />Exp.
                   </span>
@@ -551,29 +632,33 @@ export function HeroSection({ profile }: HeroSectionProps) {
               </motion.div>
 
             </motion.div>
-          </div>
 
-        </div>
-      </div>
+            {/* ── TRUSTED BY TECHNOLOGIES (PLACED DIRECTLY UNDER THE PHOTO CARD FRAME) ── */}
+            <motion.div
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.9 }}
+              className="w-full max-w-[420px] mt-3 pt-3 border-t border-white/10 flex flex-col items-center justify-center z-20"
+            >
+              <p className="text-center text-[10px] font-bold tracking-[0.25em] text-slate-400 uppercase mb-2">
+                Trusted By Technologies
+              </p>
 
-      {/* ── BOTTOM LOGO MARQUEE ("TRUSTED BY TECHNOLOGIES") ── */}
-      <div className="relative z-10 w-full pt-8 pb-2 border-t border-white/5 mt-8">
-        <div className="container-custom">
-          <p className="text-center text-[10px] font-bold tracking-[0.25em] text-slate-400 uppercase mb-4">
-            Trusted By Technologies
-          </p>
-
-          <div className="flex flex-wrap items-center justify-center gap-8 sm:gap-12 opacity-75">
-            {techLogos.map(({ name: techName, Icon }) => (
-              <div
-                key={techName}
-                className="flex items-center gap-2 text-slate-400 hover:text-white transition-all duration-300 hover:scale-110 cursor-default"
-              >
-                <Icon className="w-5 h-5" />
-                <span className="text-xs font-semibold tracking-wide">{techName}</span>
+              <div className="flex flex-wrap items-center justify-center gap-2.5 sm:gap-3 opacity-90">
+                {techLogos.map(({ name: techName, Icon }) => (
+                  <div
+                    key={techName}
+                    className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-black/60 border border-white/10 text-slate-300 hover:text-white hover:border-orange-500/40 transition-all duration-300 hover:scale-105 cursor-default backdrop-blur-md shadow-md"
+                  >
+                    <Icon className="w-4 h-4 text-orange-400" />
+                    <span className="text-[11px] font-semibold tracking-wide">{techName}</span>
+                  </div>
+                ))}
               </div>
-            ))}
+            </motion.div>
+
           </div>
+
         </div>
       </div>
     </section>

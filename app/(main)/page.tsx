@@ -32,7 +32,15 @@ export default async function HomePage() {
 
   return (
     <>
-      <HeroSection profile={profile} />
+      <HeroSection
+        profile={profile}
+        statsCounts={{
+          projectsCount: featuredProjects.length,
+          skillsCount: skills.length,
+          certsCount: certs.length,
+          experienceCount: experience.length,
+        }}
+      />
       <StatsSection
         skillsCount={skills.length}
         projectsCount={featuredProjects.length}

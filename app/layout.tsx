@@ -5,6 +5,7 @@ import { Providers } from '@/components/providers/Providers'
 import { AnimatedCursor } from '@/components/ui/AnimatedCursor'
 import { ScrollProgress } from '@/components/ui/ScrollProgress'
 import { CommandMenu } from '@/components/ui/CommandMenu'
+import { GlobalParticlesBackground } from '@/components/ui/GlobalParticlesBackground'
 import { Toaster } from 'sonner'
 import { settingsService } from '@/services/settingsService'
 import { VisitorTracker } from '@/components/providers/VisitorTracker'
@@ -43,8 +44,8 @@ export async function generateMetadata(): Promise<Metadata> {
       template: `%s | ${settings?.site_name || 'Keyur Mistry'}`,
     },
     description: settings?.site_description || 'Flutter Developer with practical experience developing cross-platform applications using Flutter, Firebase and Supabase. Skilled in REST APIs, scalable architecture, backend integration and UI development.',
-    keywords: settings?.seo_keywords 
-      ? settings.seo_keywords.split(',').map(k => k.trim()) 
+    keywords: settings?.seo_keywords
+      ? settings.seo_keywords.split(',').map(k => k.trim())
       : [
         'Flutter Developer',
         'Mobile App Developer',
@@ -159,6 +160,8 @@ export default async function RootLayout({
         <div className="aurora-bg" aria-hidden="true" />
         {/* Noise Overlay */}
         <div className="noise-overlay" aria-hidden="true" />
+        {/* Ambient Floating Particle Dots Across Entire Website */}
+        <GlobalParticlesBackground />
 
         <Providers>
           <VisitorTracker />
