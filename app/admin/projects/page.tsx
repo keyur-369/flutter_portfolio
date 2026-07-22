@@ -515,7 +515,9 @@ export default function AdminProjectsPage() {
               <div className="flex items-center gap-3 sm:gap-4 flex-1 min-w-0">
                 {/* Drag Handle, Position Badge & Arrow Controls */}
                 <div className="flex items-center gap-2 flex-shrink-0 bg-white/[0.04] p-1.5 rounded-xl border border-white/[0.08]">
-                  <GripVertical size={16} className="text-slate-400 hover:text-purple-300 cursor-grab active:cursor-grabbing" title="Drag to reorder position" />
+                  <span title="Drag to reorder position">
+                    <GripVertical size={16} className="text-slate-400 hover:text-purple-300 cursor-grab active:cursor-grabbing" />
+                  </span>
                   <span className="text-xs font-mono font-bold text-purple-300 px-1.5 py-0.5 rounded bg-purple-500/20">
                     #{i + 1}
                   </span>
