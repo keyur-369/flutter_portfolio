@@ -124,14 +124,14 @@ export default function AdminProfilePage() {
 
   return (
     <div className="max-w-3xl mx-auto">
-      <div className="mb-8">
-        <h1 className="font-display font-black text-3xl text-white mb-1">Profile</h1>
-        <p className="text-slate-400 text-sm">Update your public portfolio profile & avatar photo</p>
+      <div className="mb-6 sm:mb-8">
+        <h1 className="font-display font-black text-2xl sm:text-3xl text-white mb-1">Profile</h1>
+        <p className="text-slate-400 text-xs sm:text-sm">Update your public portfolio profile & avatar photo</p>
       </div>
 
       {/* Avatar Photo Header Card */}
-      <div className="glass-card p-6 mb-6 border border-white/10 rounded-2xl">
-        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
+      <div className="glass-card p-4 sm:p-6 mb-6 border border-white/10 rounded-2xl">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6">
           <div className="w-24 h-24 rounded-2xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center overflow-hidden flex-shrink-0 border-2 border-primary/40 shadow-xl relative group">
             {imageUrlInput ? (
               <img src={imageUrlInput} alt="Profile Avatar" className="w-full h-full object-cover" />
@@ -142,9 +142,9 @@ export default function AdminProfilePage() {
               <button
                 type="button"
                 onClick={() => setCropImageSrc(imageUrlInput)}
-                className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 flex flex-col items-center justify-center text-white text-xs font-semibold transition-opacity"
+                className="absolute inset-0 bg-black/60 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 flex flex-col items-center justify-center text-white text-[11px] font-semibold transition-opacity"
               >
-                <Crop size={16} className="mb-1 text-primary/70" />
+                <Crop size={16} className="mb-1 text-primary" />
                 Recrop
               </button>
             )}
@@ -198,7 +198,7 @@ export default function AdminProfilePage() {
       </div>
 
       {/* Form */}
-      <form onSubmit={handleSubmit(onSubmit)} className="glass-card p-8 space-y-5 border border-white/10 rounded-2xl">
+      <form onSubmit={handleSubmit(onSubmit)} className="glass-card p-4 sm:p-8 space-y-5 border border-white/10 rounded-2xl">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
           <div>
             <label className="text-xs font-semibold text-slate-300 mb-1.5 block">Full Name *</label>
@@ -250,7 +250,7 @@ export default function AdminProfilePage() {
 
         {/* Resume upload */}
         <div className="pt-4 border-t border-white/[0.08] space-y-3">
-          <label className="text-xs font-semibold text-slate-200 block flex items-center gap-2">
+          <label className="text-xs font-semibold text-slate-200 block flex items-center gap-2 flex-wrap">
             <FileText size={14} className="text-primary/70" />
             Resume PDF File
             <span className="text-white/30 font-normal">(shown on /resume page)</span>
@@ -258,7 +258,7 @@ export default function AdminProfilePage() {
 
           {profile?.resume_url && !profile.resume_url.startsWith('data:') ? (
             /* Uploaded PDF card */
-            <div className="glass rounded-xl p-4 border border-primary/20 flex items-center gap-4">
+            <div className="glass rounded-xl p-4 border border-primary/20 flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4">
               <div className="w-10 h-10 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center flex-shrink-0">
                 <FileText size={18} className="text-primary" />
               </div>
@@ -266,7 +266,7 @@ export default function AdminProfilePage() {
                 <p className="text-sm font-semibold text-white mb-0.5">Resume PDF Uploaded ✓</p>
                 <p className="text-xs text-white/40 truncate">{profile.resume_url}</p>
               </div>
-              <div className="flex items-center gap-2 flex-shrink-0">
+              <div className="flex items-center gap-2 flex-shrink-0 w-full sm:w-auto justify-end">
                 <a
                   href={profile.resume_url}
                   target="_blank"

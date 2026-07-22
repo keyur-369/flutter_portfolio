@@ -121,9 +121,9 @@ function CertForm({ item, onClose, onSave }: { item?: Certificate | null; onClos
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md overflow-y-auto" onClick={onClose}>
-      <motion.div initial={{ scale: 0.95, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} className="glass-card p-8 w-full max-w-lg my-4 border border-white/10 shadow-2xl" onClick={(e) => e.stopPropagation()}>
+      <motion.div initial={{ scale: 0.95, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} className="glass-card p-4 sm:p-8 w-full max-w-lg my-4 border border-white/10 shadow-2xl" onClick={(e) => e.stopPropagation()}>
         <div className="flex justify-between items-center mb-6 pb-4 border-b border-white/[0.08]">
-          <h2 className="font-display font-bold text-2xl text-white">{item ? 'Edit Certificate' : 'Add Certificate'}</h2>
+          <h2 className="font-display font-bold text-xl sm:text-2xl text-white">{item ? 'Edit Certificate' : 'Add Certificate'}</h2>
           <button onClick={onClose} className="p-2 rounded-xl glass text-slate-400 hover:text-white"><X size={16} /></button>
         </div>
 
@@ -133,7 +133,7 @@ function CertForm({ item, onClose, onSave }: { item?: Certificate | null; onClos
             <input {...register('title', { required: true })} className="input-glass" placeholder="Flutter & Dart - Complete Guide" />
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label className="text-xs font-semibold text-slate-300 mb-1.5 block">Issuer (Platform)</label>
               <input {...register('issuer')} className="input-glass" placeholder="Udemy, Coursera, Google..." />
@@ -237,10 +237,10 @@ export default function AdminCertificatesPage() {
     <div className="max-w-5xl mx-auto">
       <div className="flex items-center justify-between mb-8">
         <div>
-          <h1 className="font-display font-black text-3xl text-white mb-1">Certificates</h1>
-          <p className="text-slate-400 text-sm">{items.length} certificate{items.length === 1 ? '' : 's'} managed in Supabase</p>
+          <h1 className="font-display font-black text-2xl sm:text-3xl text-white mb-1">Certificates</h1>
+          <p className="text-slate-400 text-xs sm:text-sm">{items.length} certificate{items.length === 1 ? '' : 's'} managed in Supabase</p>
         </div>
-        <button onClick={() => { setEditing(null); setShowForm(true) }} className="btn-primary">
+        <button onClick={() => { setEditing(null); setShowForm(true) }} className="btn-primary text-xs sm:text-sm">
           <Plus size={16} /> Add Certificate
         </button>
       </div>

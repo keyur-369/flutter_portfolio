@@ -7,7 +7,8 @@ export const metadata: Metadata = {
   description: 'Explore Keyur Mistry\'s Flutter and full-stack projects — Split Expenses, MCQ Pro, InvoiceHub and more.',
 }
 
-export const revalidate = 3600
+export const dynamic = 'force-dynamic'
+export const revalidate = 0
 
 export default async function ProjectsPage() {
   const projects = await projectService.getAll()

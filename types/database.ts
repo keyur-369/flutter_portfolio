@@ -78,6 +78,7 @@ export interface Project {
   gallery?: string[] | null
   featured?: boolean
   status?: string
+  display_order?: number | null
   created_at?: string
 }
 

@@ -74,13 +74,13 @@ export default function AdminDashboard() {
 
   return (
     <div className="max-w-6xl mx-auto">
-      <div className="mb-8">
-        <h1 className="font-display font-black text-3xl text-white mb-1">Dashboard</h1>
-        <p className="text-white/50 text-sm">Welcome back! Here&apos;s your portfolio overview.</p>
+      <div className="mb-6 sm:mb-8">
+        <h1 className="font-display font-black text-2xl sm:text-3xl text-white mb-1">Dashboard</h1>
+        <p className="text-white/50 text-xs sm:text-sm">Welcome back! Here&apos;s your portfolio overview.</p>
       </div>
 
       {/* Stats Grid */}
-      <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 mb-10">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 mb-8 sm:mb-10">
         {statCards.map((card, i) => {
           const Icon = card.icon
           return (
@@ -91,11 +91,11 @@ export default function AdminDashboard() {
               transition={{ delay: i * 0.08 }}
             >
               <Link href={card.href}>
-                <div className="glass-card p-5 hover:scale-[1.02] transition-transform cursor-pointer">
-                  <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${card.color} flex items-center justify-center mb-3`}>
+                <div className="glass-card p-4 sm:p-5 hover:scale-[1.02] transition-transform cursor-pointer">
+                  <div className={`w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-br ${card.color} flex items-center justify-center mb-2.5 sm:mb-3`}>
                     <Icon size={18} className="text-white" />
                   </div>
-                  <div className="font-display font-black text-3xl gradient-text mb-1">{card.value}</div>
+                  <div className="font-display font-black text-2xl sm:text-3xl gradient-text mb-1">{card.value}</div>
                   <p className="text-xs text-white/50">{card.label}</p>
                 </div>
               </Link>
@@ -104,13 +104,13 @@ export default function AdminDashboard() {
         })}
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
         {/* Recent Projects */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}
-          className="glass-card p-6"
+          className="glass-card p-4 sm:p-6"
         >
           <div className="flex items-center justify-between mb-5">
             <h2 className="font-display font-bold text-lg text-white">Recent Projects</h2>
@@ -141,7 +141,7 @@ export default function AdminDashboard() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5 }}
-          className="glass-card p-6"
+          className="glass-card p-4 sm:p-6"
         >
           <div className="flex items-center justify-between mb-5">
             <h2 className="font-display font-bold text-lg text-white">Recent Messages</h2>

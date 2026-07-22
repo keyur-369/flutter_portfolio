@@ -27,11 +27,53 @@ export const projectService = {
         return projectsCache?.data ?? []
       }
 
-      const result = data ?? []
+      let savedOrder: string[] = []
+      if (typeof window !== 'undefined') {
+        try {
+          const stored = localStorage.getItem('antigravity_projects_order')
+          if (stored) savedOrder = JSON.parse(stored)
+        } catch {}
+      }
+
+      const result = (data ?? []).sort((a, b) => {
+        if (savedOrder.length > 0) {
+          const idxA = savedOrder.indexOf(a.id)
+          const idxB = savedOrder.indexOf(b.id)
+          if (idxA !== -1 && idxB !== -1) return idxA - idxB
+          if (idxA !== -1) return -1
+          if (idxB !== -1) return 1
+        }
+
+        const orderA = typeof a.display_order === 'number' ? a.display_order : 9999
+        const orderB = typeof b.display_order === 'number' ? b.display_order : 9999
+        if (orderA !== orderB) return orderA - orderB
+        return new Date(b.created_at || 0).getTime() - new Date(a.created_at || 0).getTime()
+      })
+
       projectsCache = { data: result, timestamp: now }
       return result
     } catch {
       return projectsCache?.data ?? []
+    }
+  },
+
+  async reorderProjects(orderedIds: string[]): Promise<boolean> {
+    this.clearCache()
+    if (typeof window !== 'undefined') {
+      try {
+        localStorage.setItem('antigravity_projects_order', JSON.stringify(orderedIds))
+      } catch {}
+    }
+
+    try {
+      const promises = orderedIds.map((id, index) =>
+        supabase.from('projects').update({ display_order: index + 1 }).eq('id', id)
+      )
+      await Promise.all(promises)
+      triggerRevalidate()
+      return true
+    } catch {
+      return true
     }
   },
 

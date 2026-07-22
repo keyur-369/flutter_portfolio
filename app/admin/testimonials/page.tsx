@@ -21,19 +21,19 @@ function TestimonialForm({ item, onClose, onSave }: { item?: Testimonial | null;
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm" onClick={onClose}>
-      <motion.div initial={{ scale: 0.95 }} animate={{ scale: 1 }} className="glass-card p-8 w-full max-w-lg" onClick={(e) => e.stopPropagation()}>
-        <div className="flex justify-between mb-6">
-          <h2 className="font-display font-bold text-2xl text-white">{item ? 'Edit Testimonial' : 'Add Testimonial'}</h2>
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm overflow-y-auto" onClick={onClose}>
+      <motion.div initial={{ scale: 0.95 }} animate={{ scale: 1 }} className="glass-card p-4 sm:p-8 w-full max-w-lg my-4" onClick={(e) => e.stopPropagation()}>
+        <div className="flex justify-between items-center mb-6 pb-3 border-b border-white/[0.08]">
+          <h2 className="font-display font-bold text-xl sm:text-2xl text-white">{item ? 'Edit Testimonial' : 'Add Testimonial'}</h2>
           <button onClick={onClose} className="p-2 rounded-xl glass text-white/60 hover:text-white"><X size={16} /></button>
         </div>
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-          <div><label className="text-sm text-white/60 mb-1 block">Client Name *</label><input {...register('client_name', { required: true })} className="input-glass" placeholder="John Doe" /></div>
-          <div className="grid grid-cols-2 gap-4">
-            <div><label className="text-sm text-white/60 mb-1 block">Designation</label><input {...register('designation')} className="input-glass" placeholder="Product Manager" /></div>
-            <div><label className="text-sm text-white/60 mb-1 block">Company</label><input {...register('company')} className="input-glass" placeholder="Acme Inc." /></div>
+          <div><label className="text-xs font-semibold text-slate-300 mb-1.5 block">Client Name *</label><input {...register('client_name', { required: true })} className="input-glass" placeholder="John Doe" /></div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div><label className="text-xs font-semibold text-slate-300 mb-1.5 block">Designation</label><input {...register('designation')} className="input-glass" placeholder="Product Manager" /></div>
+            <div><label className="text-xs font-semibold text-slate-300 mb-1.5 block">Company</label><input {...register('company')} className="input-glass" placeholder="Acme Inc." /></div>
           </div>
-          <div><label className="text-sm text-white/60 mb-1 block">Review *</label><textarea {...register('review', { required: true })} rows={4} className="input-glass resize-none" placeholder="Write their review..." /></div>
+          <div><label className="text-xs font-semibold text-slate-300 mb-1.5 block">Review *</label><textarea {...register('review', { required: true })} rows={4} className="input-glass resize-none" placeholder="Write their review..." /></div>
           <div className="flex gap-3 pt-2">
             <button type="button" onClick={onClose} className="btn-ghost flex-1">Cancel</button>
             <button type="submit" disabled={isSubmitting} className="btn-primary flex-1 justify-center disabled:opacity-60">
@@ -64,19 +64,19 @@ export default function AdminTestimonialsPage() {
   return (
     <div className="max-w-4xl mx-auto">
       <div className="flex items-center justify-between mb-8">
-        <div><h1 className="font-display font-black text-3xl text-white mb-1">Testimonials</h1>
-          <p className="text-white/50 text-sm">{items.length} total</p></div>
-        <button onClick={() => { setEditing(null); setShowForm(true) }} className="btn-primary"><Plus size={16} /> Add</button>
+        <div><h1 className="font-display font-black text-2xl sm:text-3xl text-white mb-1">Testimonials</h1>
+          <p className="text-white/50 text-xs sm:text-sm">{items.length} total</p></div>
+        <button onClick={() => { setEditing(null); setShowForm(true) }} className="btn-primary text-xs sm:text-sm"><Plus size={16} /> Add</button>
       </div>
       {loading ? <div className="flex items-center justify-center h-40"><div className="w-8 h-8 border-2 border-primary/30 border-t-primary rounded-full animate-spin" /></div> : (
         <div className="space-y-3">
           {items.map((t, i) => (
             <motion.div key={t.id} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.05 }}
-              className="glass-card p-5 flex items-start justify-between gap-4">
-              <div className="flex-1">
-                <p className="font-semibold text-white mb-1">{t.client_name}</p>
-                <p className="text-xs text-primary/70 mb-2">{t.designation}{t.company ? ` · ${t.company}` : ''}</p>
-                <p className="text-sm text-white/55 italic line-clamp-2">&ldquo;{t.review}&rdquo;</p>
+              className="glass-card p-4 sm:p-5 flex items-start justify-between gap-3 sm:gap-4">
+              <div className="flex-1 min-w-0">
+                <p className="font-semibold text-white mb-1 text-sm sm:text-base truncate">{t.client_name}</p>
+                <p className="text-xs text-primary/70 mb-2 truncate">{t.designation}{t.company ? ` · ${t.company}` : ''}</p>
+                <p className="text-xs sm:text-sm text-white/55 italic line-clamp-3">&ldquo;{t.review}&rdquo;</p>
               </div>
               <div className="flex gap-2 flex-shrink-0">
                 <button onClick={() => { setEditing(t); setShowForm(true) }} className="p-2 rounded-xl glass text-white/60 hover:text-white"><Edit size={14} /></button>

@@ -12,8 +12,8 @@ import { AboutStats } from '@/components/about/AboutStats'
 import { GithubGraph } from '@/components/about/GithubGraph'
 
 export const metadata: Metadata = {
-  title: 'About',
-  description: 'Learn about Keyur Mistry — Flutter Developer, his journey, education, and career goals.',
+  title: 'About | Keyur Mistry',
+  description: 'Learn about Keyur Mistry — Flutter Developer, his career journey, technical skills, education, and milestones.',
 }
 
 export const revalidate = 3600
@@ -29,7 +29,7 @@ export default async function AboutPage() {
   ])
 
   return (
-    <>
+    <div className="min-h-screen pt-4 pb-16">
       <AboutHero profile={profile} />
       <AboutStats
         eduCount={education.length}
@@ -39,8 +39,8 @@ export default async function AboutPage() {
         certsCount={certs.length}
       />
       <ExperienceTimeline experience={experience} />
-      <GithubGraph username={profile?.github} />
       <EducationTimeline education={education} />
-    </>
+      <GithubGraph username={profile?.github} />
+    </div>
   )
 }

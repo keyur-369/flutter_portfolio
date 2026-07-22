@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Plus, Edit, Trash2, X, Save, CheckCircle } from 'lucide-react'
+import { Plus, Edit, Trash2, X, Save, CheckCircle, ArrowLeft } from 'lucide-react'
 import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 import { contactService } from '@/services/contactService'
@@ -34,14 +34,14 @@ export default function AdminMessagesPage() {
 
   return (
     <div className="max-w-5xl mx-auto">
-      <div className="mb-8">
-        <h1 className="font-display font-black text-3xl text-white mb-1">Messages</h1>
-        <p className="text-white/50 text-sm">{messages.length} total · {unread} unread</p>
+      <div className="mb-6 sm:mb-8">
+        <h1 className="font-display font-black text-2xl sm:text-3xl text-white mb-1">Messages</h1>
+        <p className="text-white/50 text-xs sm:text-sm">{messages.length} total · {unread} unread</p>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
         {/* List */}
-        <div className="lg:col-span-2 space-y-2">
+        <div className={`lg:col-span-2 space-y-2 ${selected ? 'hidden lg:block' : 'block'}`}>
           {loading ? (
             <div className="flex items-center justify-center h-40">
               <div className="w-6 h-6 border-2 border-primary/30 border-t-primary rounded-full animate-spin" />
@@ -74,15 +74,21 @@ export default function AdminMessagesPage() {
         </div>
 
         {/* Detail */}
-        <div className="lg:col-span-3">
+        <div className={`lg:col-span-3 ${!selected ? 'hidden lg:block' : 'block'}`}>
           {selected ? (
-            <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} className="glass-card p-6">
-              <div className="flex items-start justify-between mb-6">
+            <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} className="glass-card p-4 sm:p-6">
+              <button
+                onClick={() => setSelected(null)}
+                className="lg:hidden flex items-center gap-1 text-xs text-primary mb-4 font-medium"
+              >
+                <ArrowLeft size={14} /> Back to messages list
+              </button>
+              <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 mb-6">
                 <div>
-                  <h3 className="font-bold text-xl text-white mb-1">{selected.name}</h3>
-                  <a href={`mailto:${selected.email}`} className="text-primary/70 text-sm hover:text-primary">{selected.email}</a>
+                  <h3 className="font-bold text-lg sm:text-xl text-white mb-1">{selected.name}</h3>
+                  <a href={`mailto:${selected.email}`} className="text-primary/70 text-xs sm:text-sm hover:text-primary break-all">{selected.email}</a>
                 </div>
-                <div className="flex gap-2">
+                <div className="flex items-center gap-2 flex-shrink-0">
                   {!selected.is_read && (
                     <button onClick={() => handleMarkRead(selected)} className="flex items-center gap-1 px-3 py-1.5 rounded-xl glass text-green-400 text-xs font-medium">
                       <CheckCircle size={12} /> Mark Read
@@ -95,19 +101,19 @@ export default function AdminMessagesPage() {
               </div>
               <div className="mb-4 pb-4 border-b border-white/[0.06]">
                 <p className="text-xs text-white/40 mb-1">Subject</p>
-                <p className="text-white font-medium">{selected.subject}</p>
+                <p className="text-white font-medium text-sm sm:text-base">{selected.subject}</p>
               </div>
               <div className="mb-6">
                 <p className="text-xs text-white/40 mb-2">Message</p>
-                <p className="text-white/70 leading-relaxed whitespace-pre-wrap">{selected.message}</p>
+                <p className="text-white/70 text-sm leading-relaxed whitespace-pre-wrap">{selected.message}</p>
               </div>
-              <a href={`mailto:${selected.email}?subject=Re: ${selected.subject}`} className="btn-primary text-sm">
+              <a href={`mailto:${selected.email}?subject=Re: ${selected.subject}`} className="btn-primary text-xs sm:text-sm inline-flex items-center justify-center">
                 Reply via Email
               </a>
             </motion.div>
           ) : (
             <div className="glass-card p-12 text-center h-full flex items-center justify-center">
-              <p className="text-white/30">Select a message to view</p>
+              <p className="text-white/30 text-sm">Select a message to view</p>
             </div>
           )}
         </div>

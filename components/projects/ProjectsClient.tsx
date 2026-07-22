@@ -130,9 +130,6 @@ const statuses = [
                             </div>
                           )}
 
-                          {/* Gradient Overlay */}
-                          <div className="absolute inset-0 bg-gradient-to-t from-[#0d0e1c] via-transparent to-transparent opacity-80" />
-
                           {/* Action Links Overlay */}
                           <div className="absolute top-3 right-3 flex items-center gap-1.5 z-10" onClick={(e) => e.stopPropagation()}>
                             {project.playstore_url && (

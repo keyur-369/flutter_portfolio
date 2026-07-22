@@ -50,9 +50,9 @@ function SkillForm({ skill, onClose, onSave }: { skill?: Skill | null; onClose: 
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md overflow-y-auto" onClick={onClose}>
-      <motion.div initial={{ scale: 0.95, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} className="glass-card p-8 w-full max-w-md my-4 border border-white/10 shadow-2xl" onClick={(e) => e.stopPropagation()}>
+      <motion.div initial={{ scale: 0.95, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} className="glass-card p-4 sm:p-8 w-full max-w-md my-4 border border-white/10 shadow-2xl" onClick={(e) => e.stopPropagation()}>
         <div className="flex items-center justify-between mb-6 pb-4 border-b border-white/[0.08]">
-          <h2 className="font-display font-bold text-2xl text-white">{skill ? 'Edit Skill' : 'Add Skill'}</h2>
+          <h2 className="font-display font-bold text-xl sm:text-2xl text-white">{skill ? 'Edit Skill' : 'Add Skill'}</h2>
           <button onClick={onClose} className="p-2 rounded-xl glass text-white/60 hover:text-white"><X size={16} /></button>
         </div>
 
@@ -151,10 +151,10 @@ export default function AdminSkillsPage() {
     <div className="max-w-5xl mx-auto">
       <div className="flex items-center justify-between mb-8">
         <div>
-          <h1 className="font-display font-black text-3xl text-white mb-1">Skills</h1>
-          <p className="text-slate-400 text-sm">{skills.length} skills listed with official brand logos</p>
+          <h1 className="font-display font-black text-2xl sm:text-3xl text-white mb-1">Skills</h1>
+          <p className="text-slate-400 text-xs sm:text-sm">{skills.length} skills listed with official brand logos</p>
         </div>
-        <button onClick={() => { setEditingSkill(null); setShowForm(true) }} className="btn-primary">
+        <button onClick={() => { setEditingSkill(null); setShowForm(true) }} className="btn-primary text-xs sm:text-sm">
           <Plus size={16} /> Add Skill
         </button>
       </div>

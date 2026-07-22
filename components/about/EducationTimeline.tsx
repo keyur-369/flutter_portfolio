@@ -1,6 +1,6 @@
 'use client'
 
-import { FadeIn } from '@/components/ui/FadeIn'
+import { motion } from 'framer-motion'
 import { GraduationCap, Calendar, Award, Building2 } from 'lucide-react'
 import type { Education } from '@/types/database'
 
@@ -12,63 +12,76 @@ export function EducationTimeline({ education }: EducationTimelineProps) {
   if (!education || education.length === 0) return null
 
   return (
-    <section className="section py-20 bg-white/[0.01]">
-      <div className="container-custom">
-        <FadeIn className="mb-14 text-center sm:text-left">
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full glass border border-primary/30 text-xs font-semibold text-primary/90 uppercase tracking-widest mb-4">
-            <GraduationCap size={11} />
-            Academic Background
+    <section className="py-16 relative text-white">
+      <div className="w-full max-w-[1600px] mx-auto px-4 sm:px-8 lg:px-12">
+        {/* Section Heading */}
+        <motion.div
+          initial={{ opacity: 0, y: 15 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="mb-12 text-left"
+        >
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full glass border border-cyan-500/30 text-xs font-semibold uppercase tracking-widest text-cyan-400 mb-3">
+            <GraduationCap size={12} />
+            <span>Academic Background</span>
           </div>
-          <h2 className="section-title text-white">
-            Academic <span className="gradient-text">Journey</span>
+          <h2 className="font-syne font-black text-3xl sm:text-4xl text-white">
+            Academic <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-teal-300 to-emerald-400">Journey</span>
           </h2>
-        </FadeIn>
+        </motion.div>
 
-        <div className="relative border-l-2 border-primary/30 ml-4 sm:ml-6 space-y-8 pl-6 sm:pl-10">
+        {/* Timeline Line */}
+        <div className="relative border-l-2 border-cyan-500/25 ml-4 sm:ml-6 space-y-10 pl-6 sm:pl-10">
           {education.map((edu, i) => (
-            <FadeIn key={edu.id} delay={i * 0.12} direction="left">
-              <div className="relative group">
-                {/* Timeline Graduation Cap Icon */}
-                <div className="absolute -left-[41px] sm:-left-[61px] top-6 w-9 h-9 sm:w-10 sm:h-10 rounded-2xl bg-gradient-to-tr from-primary via-primary/80 to-secondary flex items-center justify-center text-white shadow-lg shadow-primary/30 border-2 border-[#090a18] group-hover:scale-110 transition-transform duration-300 z-10">
-                  <GraduationCap size={16} />
-                </div>
+            <motion.div
+              key={edu.id}
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: i * 0.12 }}
+              className="relative group"
+            >
+              {/* Glowing Icon Bullet */}
+              <div className="absolute -left-[41px] sm:-left-[61px] top-6 w-9 h-9 sm:w-10 sm:h-10 rounded-2xl bg-black border-2 border-cyan-500 flex items-center justify-center text-cyan-400 shadow-[0_0_15px_rgba(6,182,212,0.4)] group-hover:scale-110 group-hover:bg-cyan-500 group-hover:text-black transition-all duration-300 z-10">
+                <GraduationCap size={16} />
+              </div>
 
-                {/* Card Container */}
-                <div className="glass-card p-6 sm:p-8 border border-white/10 rounded-3xl transition-all duration-300 hover:border-primary/40 hover:shadow-2xl hover:shadow-primary/10">
-                  <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 mb-4 pb-4 border-b border-white/[0.08]">
-                    <div className="space-y-1">
-                      <h3 className="font-display font-bold text-xl sm:text-2xl text-white">
-                        {edu.degree}
-                      </h3>
-                      <p className="text-secondary-foreground/70 font-semibold text-sm sm:text-base flex items-center gap-1.5">
-                        <Building2 size={14} className="text-secondary/70" />
-                        {edu.institute}
-                      </p>
-                    </div>
-
-                    {/* Date & CGPA */}
-                    <div className="flex flex-col sm:items-end gap-1.5 flex-shrink-0 text-xs sm:text-sm text-slate-400">
-                      <div className="flex items-center gap-1.5 font-medium text-slate-300">
-                        <Calendar size={13} className="text-primary/70" />
-                        {edu.start_year} — {edu.end_year ?? 'Present'}
-                      </div>
-                      {edu.cgpa && (
-                        <span className="badge badge-purple text-xs font-bold px-2.5 py-0.5 shadow-sm">
-                          <Award size={10} className="mr-1 inline" />
-                          CGPA: {edu.cgpa}
-                        </span>
-                      )}
-                    </div>
+              {/* Card Container */}
+              <div className="p-6 sm:p-8 rounded-3xl glass border border-white/10 hover:border-cyan-500/40 transition-all duration-300 shadow-xl hover:shadow-[0_15px_35px_rgba(0,0,0,0.6)]">
+                <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 mb-4 pb-4 border-b border-white/10">
+                  <div className="space-y-1.5">
+                    <h3 className="font-syne font-bold text-xl sm:text-2xl text-white">
+                      {edu.degree}
+                    </h3>
+                    <p className="font-semibold text-sm sm:text-base text-cyan-400 flex items-center gap-2">
+                      <Building2 size={15} />
+                      {edu.institute}
+                    </p>
                   </div>
 
-                  {edu.description && (
-                    <p className="text-slate-300 text-sm sm:text-base leading-relaxed font-normal">
-                      {edu.description}
-                    </p>
-                  )}
+                  {/* Dates & CGPA */}
+                  <div className="flex flex-col sm:items-end gap-2 text-xs sm:text-sm text-slate-400">
+                    <div className="flex items-center gap-2 font-medium text-slate-200">
+                      <Calendar size={14} className="text-cyan-400" />
+                      {edu.start_year} — {edu.end_year ?? 'Present'}
+                    </div>
+                    {edu.cgpa && (
+                      <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-purple-500/10 border border-purple-500/30 text-purple-300 font-bold text-xs">
+                        <Award size={11} />
+                        CGPA: {edu.cgpa}
+                      </span>
+                    )}
+                  </div>
                 </div>
+
+                {edu.description && (
+                  <p className="text-slate-300 text-sm sm:text-base leading-relaxed font-normal text-justify">
+                    {edu.description}
+                  </p>
+                )}
               </div>
-            </FadeIn>
+            </motion.div>
           ))}
         </div>
       </div>

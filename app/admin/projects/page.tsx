@@ -1,12 +1,13 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-import { Plus, Edit, Trash2, Store, Github, Star, X, Save, Upload, ExternalLink, Image as ImageIcon } from 'lucide-react'
+import { motion, AnimatePresence, Reorder } from 'framer-motion'
+import { Plus, Edit, Trash2, Store, Github, Star, X, Save, Upload, ExternalLink, Image as ImageIcon, Wand2, Sparkles, RefreshCw, CheckCircle, ArrowUp, ArrowDown, GripVertical } from 'lucide-react'
 import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 import { projectService } from '@/services/projectService'
 import { slugify } from '@/lib/utils'
+import { GithubRepoCard, type GithubRepoCardData } from '@/components/projects/GithubRepoCard'
 import type { Project } from '@/types/database'
 
 function ProjectForm({
@@ -19,7 +20,9 @@ function ProjectForm({
   onSave: () => void
 }) {
   const [uploading, setUploading] = useState(false)
+  const [fetchingGithub, setFetchingGithub] = useState(false)
   const [previewUrl, setPreviewUrl] = useState<string | null>(project?.image ?? null)
+  const [githubData, setGithubData] = useState<GithubRepoCardData | null>(null)
 
   const { register, handleSubmit, setValue, watch, formState: { isSubmitting } } = useForm({
     defaultValues: {
@@ -34,11 +37,13 @@ function ProjectForm({
       image: project?.image ?? '',
       featured: project?.featured ?? false,
       status: project?.status ?? 'Completed',
+      display_order: project?.display_order ?? undefined,
     },
   })
 
   const title = watch('title')
   const imageUrl = watch('image')
+  const githubUrl = watch('github_url')
 
   useEffect(() => {
     if (!project && title) setValue('slug', slugify(title))
@@ -47,6 +52,56 @@ function ProjectForm({
   useEffect(() => {
     if (imageUrl) setPreviewUrl(imageUrl)
   }, [imageUrl])
+
+  // Auto Fetch Details from GitHub API
+  const fetchGithubDetails = async (urlToFetch?: string) => {
+    const targetUrl = urlToFetch || githubUrl
+    if (!targetUrl || !targetUrl.trim()) {
+      toast.error('Please enter a valid GitHub repository link first!')
+      return
+    }
+
+    setFetchingGithub(true)
+    try {
+      const res = await fetch(`/api/github-repo?url=${encodeURIComponent(targetUrl.trim())}`)
+      const json = await res.json()
+
+      if (!res.ok || json.error) {
+        toast.error(json.error || 'Failed to fetch repository details from GitHub')
+        return
+      }
+
+      const { data } = json
+      setGithubData(data)
+
+      if (data.title) {
+        setValue('title', data.title)
+        setValue('slug', slugify(data.title))
+      }
+      if (data.description) {
+        setValue('description', data.description)
+      }
+      if (data.tech_stack && data.tech_stack.length > 0) {
+        setValue('tech_stack', data.tech_stack.join(', '))
+      }
+      if (data.github_url) {
+        setValue('github_url', data.github_url)
+      }
+      if (data.live_url) {
+        setValue('live_url', data.live_url)
+      }
+      if (data.image) {
+        setValue('image', data.image)
+        setPreviewUrl(data.image)
+      }
+
+      toast.success(`✨ LinkedIn-style preview loaded for "${data.title}"!`)
+    } catch {
+      toast.error('Error connecting to GitHub fetch service')
+    } finally {
+      setFetchingGithub(false)
+    }
+  }
 
   // INSTANT Image Processing (0ms local conversion)
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -83,6 +138,7 @@ function ProjectForm({
       ...data,
       tech_stack: String(data.tech_stack ?? '').split(',').map((t: string) => t.trim()).filter(Boolean),
       featured: Boolean(data.featured),
+      display_order: data.display_order ? Number(data.display_order) : null,
     }
 
     if (project) {
@@ -112,11 +168,11 @@ function ProjectForm({
         initial={{ scale: 0.95, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         exit={{ scale: 0.95, opacity: 0 }}
-        className="glass-card p-8 w-full max-w-2xl my-4 border border-white/10 shadow-2xl"
+        className="glass-card p-4 sm:p-8 w-full max-w-2xl my-4 border border-white/10 shadow-2xl"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex items-center justify-between mb-6 pb-4 border-b border-white/[0.08]">
-          <h2 className="font-display font-bold text-2xl text-white">
+          <h2 className="font-display font-bold text-xl sm:text-2xl text-white">
             {project ? 'Edit Project' : 'Add New Project'}
           </h2>
           <button onClick={onClose} className="p-2 rounded-xl glass text-slate-400 hover:text-white">
@@ -125,6 +181,77 @@ function ProjectForm({
         </div>
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+          {/* Quick GitHub Import Bar */}
+          <div className="p-3.5 rounded-2xl border border-purple-500/20 bg-purple-500/[0.06] backdrop-blur-sm space-y-3">
+            <div className="flex items-center justify-between gap-2">
+              <span className="text-xs font-semibold text-purple-300 flex items-center gap-1.5">
+                <Sparkles size={14} className="text-purple-400" />
+                Auto-fill from GitHub URL
+              </span>
+              <span className="text-[10px] text-purple-300/70">LinkedIn-style repo card fetch</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="relative flex-1">
+                <Github size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+                <input
+                  type="text"
+                  placeholder="Paste GitHub URL e.g. https://github.com/keyur-369/daily_health_tracker"
+                  className="input-glass pl-9 py-2 text-xs w-full"
+                  defaultValue={githubUrl}
+                  onChange={(e) => setValue('github_url', e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter') {
+                      e.preventDefault()
+                      fetchGithubDetails(e.currentTarget.value)
+                    }
+                  }}
+                />
+              </div>
+              <button
+                type="button"
+                onClick={() => fetchGithubDetails()}
+                disabled={fetchingGithub}
+                className="btn-primary py-2 px-3 text-xs flex items-center gap-1.5 flex-shrink-0 disabled:opacity-60 bg-purple-600 hover:bg-purple-500 border-purple-500/50"
+              >
+                {fetchingGithub ? (
+                  <RefreshCw size={13} className="animate-spin" />
+                ) : (
+                  <Wand2 size={13} />
+                )}
+                <span>{fetchingGithub ? 'Fetching...' : 'Fetch Details'}</span>
+              </button>
+            </div>
+
+            {/* Live LinkedIn-Style GitHub Repo Card Preview */}
+            {githubData && (
+              <motion.div
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: 'auto' }}
+                className="pt-2 border-t border-purple-500/20 space-y-2"
+              >
+                <div className="flex items-center justify-between">
+                  <span className="text-[11px] font-semibold text-purple-200 flex items-center gap-1">
+                    <CheckCircle size={12} className="text-emerald-400" /> Live LinkedIn GitHub Preview Card
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      if (githubData.image) {
+                        setValue('image', githubData.image)
+                        setPreviewUrl(githubData.image)
+                        toast.success('Applied GitHub Card as Cover Image!')
+                      }
+                    }}
+                    className="text-[10px] text-purple-300 hover:text-white underline font-medium"
+                  >
+                    Use Card as Cover Image
+                  </button>
+                </div>
+                <GithubRepoCard data={githubData} showOgBanner={true} />
+              </motion.div>
+            )}
+          </div>
+
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label className="text-xs font-semibold text-slate-300 mb-1.5 block">Title *</label>
@@ -207,8 +334,27 @@ function ProjectForm({
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <div>
-              <label className="text-xs font-semibold text-slate-300 mb-1.5 block">GitHub URL</label>
-              <input {...register('github_url')} className="input-glass" placeholder="https://github.com/..." />
+              <div className="flex items-center justify-between mb-1.5">
+                <label className="text-xs font-semibold text-slate-300">GitHub URL</label>
+                <button
+                  type="button"
+                  onClick={() => fetchGithubDetails()}
+                  disabled={fetchingGithub}
+                  className="text-[10px] text-purple-400 hover:text-purple-300 flex items-center gap-1 font-medium"
+                >
+                  <Wand2 size={10} /> Auto-Fetch
+                </button>
+              </div>
+              <input
+                {...register('github_url')}
+                className="input-glass"
+                placeholder="https://github.com/..."
+                onBlur={(e) => {
+                  if (e.target.value && !watch('title')) {
+                    fetchGithubDetails(e.target.value)
+                  }
+                }}
+              />
             </div>
             <div>
               <label className="text-xs font-semibold text-slate-300 mb-1.5 block">Live Demo URL</label>
@@ -220,7 +366,7 @@ function ProjectForm({
             </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-4 pt-2">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
             <div>
               <label className="text-xs font-semibold text-slate-300 mb-1.5 block">Status</label>
               <select {...register('status')} className="input-glass">
@@ -229,6 +375,17 @@ function ProjectForm({
                 <option value="In Progress" className="bg-[#0f0f23]">In Progress</option>
               </select>
             </div>
+
+            <div>
+              <label className="text-xs font-semibold text-slate-300 mb-1.5 block">Display Position (Order)</label>
+              <input
+                type="number"
+                {...register('display_order')}
+                className="input-glass"
+                placeholder="1, 2, 3..."
+              />
+            </div>
+
             <div className="flex items-end pb-2">
               <label className="flex items-center gap-2.5 cursor-pointer">
                 <input type="checkbox" {...register('featured')} className="w-4 h-4 accent-primary rounded" />
@@ -284,16 +441,63 @@ export default function AdminProjectsPage() {
     }
   }
 
+  const handleReorder = async (newOrder: Project[]) => {
+    setProjects(newOrder)
+    const ids = newOrder.map((p) => p.id)
+    const ok = await projectService.reorderProjects(ids)
+    if (ok) {
+      toast.success('Project positions reordered!')
+    } else {
+      toast.error('Failed to save project order')
+      load()
+    }
+  }
+
+  const handleMove = async (index: number, direction: 'up' | 'down') => {
+    const newProjects = [...projects]
+    const targetIndex = direction === 'up' ? index - 1 : index + 1
+
+    if (targetIndex < 0 || targetIndex >= newProjects.length) return
+
+    // Swap position in local state
+    const temp = newProjects[index]
+    newProjects[index] = newProjects[targetIndex]
+    newProjects[targetIndex] = temp
+
+    setProjects(newProjects)
+
+    // Save ordered array IDs
+    const ids = newProjects.map((p) => p.id)
+    const ok = await projectService.reorderProjects(ids)
+    if (ok) {
+      toast.success(`Position updated! ${temp.title} moved to position #${targetIndex + 1}`)
+    } else {
+      toast.error('Failed to save project position')
+      load()
+    }
+  }
+
   return (
     <div className="max-w-5xl mx-auto">
       <div className="flex items-center justify-between mb-8">
         <div>
-          <h1 className="font-display font-black text-3xl text-white mb-1">Projects</h1>
-          <p className="text-slate-400 text-sm">{projects.length} project{projects.length === 1 ? '' : 's'} managed in Supabase</p>
+          <h1 className="font-display font-black text-2xl sm:text-3xl text-white mb-1">Projects</h1>
+          <p className="text-slate-400 text-xs sm:text-sm">{projects.length} project{projects.length === 1 ? '' : 's'} managed in Supabase • Drag card or use arrows to change position</p>
         </div>
-        <button onClick={() => { setEditingProject(null); setShowForm(true) }} className="btn-primary">
-          <Plus size={16} /> Add Project
-        </button>
+        <div className="flex items-center gap-2.5">
+          <button
+            onClick={() => { setEditingProject(null); setShowForm(true) }}
+            className="px-3.5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold bg-purple-500/10 hover:bg-purple-500/20 text-purple-300 border border-purple-500/30 flex items-center gap-2 transition-all shadow-lg shadow-purple-500/5"
+          >
+            <Github size={16} className="text-purple-400" />
+            <Sparkles size={14} className="text-purple-400" />
+            <span className="hidden sm:inline">Import from GitHub</span>
+            <span className="sm:hidden">Import</span>
+          </button>
+          <button onClick={() => { setEditingProject(null); setShowForm(true) }} className="btn-primary text-xs sm:text-sm">
+            <Plus size={16} /> Add Project
+          </button>
+        </div>
       </div>
 
       {loading ? (
@@ -301,16 +505,42 @@ export default function AdminProjectsPage() {
           <div className="w-8 h-8 border-2 border-primary/30 border-t-primary rounded-full animate-spin" />
         </div>
       ) : (
-        <div className="space-y-3">
+        <Reorder.Group axis="y" values={projects} onReorder={handleReorder} className="space-y-3">
           {projects.map((project, i) => (
-            <motion.div
+            <Reorder.Item
               key={project.id}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: i * 0.04 }}
-              className="glass-card p-5 flex items-center justify-between gap-4"
+              value={project}
+              className="glass-card p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4 cursor-grab active:cursor-grabbing border border-white/10 hover:border-purple-500/30 transition-all select-none"
             >
-              <div className="flex items-center gap-4 flex-1 min-w-0">
+              <div className="flex items-center gap-3 sm:gap-4 flex-1 min-w-0">
+                {/* Drag Handle, Position Badge & Arrow Controls */}
+                <div className="flex items-center gap-2 flex-shrink-0 bg-white/[0.04] p-1.5 rounded-xl border border-white/[0.08]">
+                  <GripVertical size={16} className="text-slate-400 hover:text-purple-300 cursor-grab active:cursor-grabbing" title="Drag to reorder position" />
+                  <span className="text-xs font-mono font-bold text-purple-300 px-1.5 py-0.5 rounded bg-purple-500/20">
+                    #{i + 1}
+                  </span>
+                  <div className="flex flex-col gap-0.5">
+                    <button
+                      type="button"
+                      onClick={(e) => { e.stopPropagation(); handleMove(i, 'up') }}
+                      disabled={i === 0}
+                      className="p-1 rounded text-slate-400 hover:text-white disabled:opacity-20 hover:bg-white/10 transition-colors"
+                      title="Move Project Up"
+                    >
+                      <ArrowUp size={12} />
+                    </button>
+                    <button
+                      type="button"
+                      onClick={(e) => { e.stopPropagation(); handleMove(i, 'down') }}
+                      disabled={i === projects.length - 1}
+                      className="p-1 rounded text-slate-400 hover:text-white disabled:opacity-20 hover:bg-white/10 transition-colors"
+                      title="Move Project Down"
+                    >
+                      <ArrowDown size={12} />
+                    </button>
+                  </div>
+                </div>
+
                 {project.image ? (
                   <img src={project.image} alt={project.title} className="w-12 h-12 rounded-xl object-cover border border-white/10 flex-shrink-0" />
                 ) : (
@@ -319,12 +549,12 @@ export default function AdminProjectsPage() {
                   </div>
                 )}
                 <div className="min-w-0 flex-1">
-                  <div className="flex items-center gap-2 mb-1">
-                    <h3 className="font-semibold text-white truncate">{project.title}</h3>
+                  <div className="flex flex-wrap items-center gap-2 mb-1">
+                    <h3 className="font-semibold text-white truncate text-sm sm:text-base">{project.title}</h3>
                     {project.featured && <span className="badge badge-purple text-[10px]"><Star size={8} /> Featured</span>}
                     <span className="badge badge-blue text-[10px]">{project.status}</span>
                   </div>
-                  <p className="text-xs text-slate-400 truncate">{project.description}</p>
+                  <p className="text-xs text-slate-400 line-clamp-2 sm:truncate">{project.description}</p>
                   <div className="flex gap-1 mt-2 flex-wrap">
                     {(project.tech_stack ?? []).slice(0, 5).map((t) => (
                       <span key={t} className="tech-chip text-[10px] px-1.5 py-0.5">{t}</span>
@@ -333,7 +563,7 @@ export default function AdminProjectsPage() {
                 </div>
               </div>
 
-              <div className="flex items-center gap-2 flex-shrink-0">
+              <div className="flex items-center gap-2 justify-end pt-3 sm:pt-0 border-t sm:border-t-0 border-white/[0.06] flex-wrap sm:flex-nowrap flex-shrink-0">
                 {project.playstore_url && <a href={project.playstore_url} target="_blank" rel="noopener noreferrer" className="p-2 rounded-xl glass text-emerald-400 hover:text-emerald-300"><Store size={14} /></a>}
                 {project.github_url && <a href={project.github_url} target="_blank" rel="noopener noreferrer" className="p-2 rounded-xl glass text-slate-400 hover:text-white"><Github size={14} /></a>}
                 {project.live_url && <a href={project.live_url} target="_blank" rel="noopener noreferrer" className="p-2 rounded-xl glass text-primary/70 hover:text-primary"><ExternalLink size={14} /></a>}
@@ -347,7 +577,7 @@ export default function AdminProjectsPage() {
                   <Trash2 size={14} />
                 </button>
               </div>
-            </motion.div>
+            </Reorder.Item>
           ))}
 
           {projects.length === 0 && (
@@ -358,7 +588,7 @@ export default function AdminProjectsPage() {
               </button>
             </div>
           )}
-        </div>
+        </Reorder.Group>
       )}
 
       <AnimatePresence>

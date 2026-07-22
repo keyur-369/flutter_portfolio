@@ -4,6 +4,7 @@ import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { ArrowLeft, Github, ExternalLink, Store, Star } from 'lucide-react'
 import { FadeIn } from '@/components/ui/FadeIn'
+import { GithubRepoCard } from '@/components/projects/GithubRepoCard'
 import type { Project } from '@/types/database'
 
 interface ProjectDetailProps {
@@ -82,6 +83,29 @@ export function ProjectDetail({ project }: ProjectDetailProps) {
               <div className="mb-8">
                 <h2 className="font-semibold text-white mb-4">About This Project</h2>
                 <p className="text-white/60 leading-relaxed">{project.long_description}</p>
+              </div>
+            )}
+
+            {/* GitHub Repository Live Card Showcase */}
+            {project.github_url && (
+              <div className="mb-8">
+                <h2 className="font-semibold text-white mb-4 flex items-center gap-2">
+                  <Github size={18} className="text-purple-400" />
+                  GitHub Repository Card
+                </h2>
+                <div className="max-w-xl">
+                  <GithubRepoCard
+                    data={{
+                      title: project.title,
+                      description: project.description || undefined,
+                      github_url: project.github_url,
+                      live_url: project.live_url || undefined,
+                      tech_stack: project.tech_stack || undefined,
+                      image: project.image || undefined,
+                    }}
+                    showOgBanner={true}
+                  />
+                </div>
               </div>
             )}
 
