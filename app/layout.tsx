@@ -9,6 +9,7 @@ import { GlobalParticlesBackground } from '@/components/ui/GlobalParticlesBackgr
 import { Toaster } from 'sonner'
 import { settingsService } from '@/services/settingsService'
 import { VisitorTracker } from '@/components/providers/VisitorTracker'
+import { HelloLoader } from '@/components/ui/HelloLoader'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -164,6 +165,7 @@ export default async function RootLayout({
         <GlobalParticlesBackground />
 
         <Providers>
+          <HelloLoader />
           <VisitorTracker />
           <AnimatedCursor />
           <ScrollProgress />
